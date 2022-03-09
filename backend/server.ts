@@ -6,8 +6,7 @@ import path from 'path';
 const app = express();
 const port = 8080; // default port to listen
 
-// connectToDatabase();
-// app.use(express.static(path.resolve("./") + "/build/client"));
+app.use(express.static(path.resolve("./") + "/build/client"));
 app.get( "/", (_req: Request, res: Response ) => {
   res.send( "server is up and running..." );
 } );
