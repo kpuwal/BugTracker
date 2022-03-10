@@ -1,5 +1,5 @@
 import './App.css';
-import bread from './bug.png';
+import bread from './assets/img/bug.png';
 
 function App() {
   return (

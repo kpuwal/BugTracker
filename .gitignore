@@ -1,5 +1,10 @@
 backend/node_modules
 backend/build
 backend/.env
+backend/.DS_Store
 
 client/node_modules
+client/.env
+client/.DS_Store
+
+.DS_Store
