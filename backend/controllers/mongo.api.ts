@@ -29,7 +29,6 @@ export const readCard = async (req: Request, res: Response) => {
 }
 
 export const createCard = async (req: Request, res: Response) => {
-  console.log("received ", req.body)
   try {
       const newBug = req.body as Bug;
       const result = await collections.bugs.insertOne(newBug);

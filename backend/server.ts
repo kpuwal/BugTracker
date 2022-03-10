@@ -1,6 +1,6 @@
 import express, {Request, Response} from "express";
 import appRouter from './router';
-import {connectToDatabase} from './db/services/mongo.connection';
+import { connectToDatabase } from './db/services/mongo.connection';
 import path from 'path';
 
 const app = express();
@@ -17,7 +17,6 @@ app.get( "/", (_req: Request, res: Response ) => {
 
 connectToDatabase()
   .then(() => {
-
     app.use(express.json());
     app.use('/db', appRouter);
     app.listen( port, () => {
@@ -29,8 +28,3 @@ connectToDatabase()
     console.log("Database connection failed", error);
     process.exit();
   })
-
-// app.use('/',  appRouter);
-
-
-// start the Express server
