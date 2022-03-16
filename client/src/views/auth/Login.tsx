@@ -11,10 +11,12 @@ export default function Login() {
             <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-sm rounded-lg bg-blueGray-50 border-0">
               
               <div className="text-center" style={{alignSelf: 'center'}}>
-                <img src={Bug} style={{width: '80px', height:'80px'}} alt='logo' />
-                <p>
-                  <code>BugTracker</code>
-                </p>
+                <img 
+                  src={Bug} 
+                  style={{width: '80px', height:'80px'}}
+                  alt='logo' 
+                />
+                <code>BugTracker</code>
               </div>
 
               <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
@@ -54,7 +56,7 @@ export default function Login() {
                       <input
                         id="customCheckLogin"
                         type="checkbox"
-                        className="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
+                        className="form-checkbox border-1 rounded text-blueGray-800 ml-1 w-5 h-5 ease-linear transition-all duration-150"
                       />
                       <span className="ml-2 text-sm font-semibold text-blueGray-600">
                         Remember me
