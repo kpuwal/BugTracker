@@ -10,7 +10,7 @@ export default function Login() {
           <div className="w-full lg:w-4/12 px-4">
             <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-sm rounded-lg bg-blueGray-50 border-0">
               
-              <div className="btn-wrapper text-center">
+              <div className="text-center" style={{alignSelf: 'center'}}>
                 <img src={Bug} style={{width: '80px', height:'80px'}} alt='logo' />
                 <p>
                   <code>BugTracker</code>
