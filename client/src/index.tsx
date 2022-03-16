@@ -1,13 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+import Auth from './layouts/Auth';
 import reportWebVitals from './reportWebVitals';
 
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import "./assets/styles/tailwind.css";
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Auth />} />
+      <Route
+        path="*"
+        element={
+          <main style={{ padding: "1rem" }}>
+            <p>There's nothing here!</p>
+          </main>
+        }
+      />
+    </Routes>
+  </BrowserRouter>,
   document.getElementById('root')
 );
 
