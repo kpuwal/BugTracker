@@ -16,7 +16,7 @@
   },
   "include": [
       "*"
-  ],
+, "db/controllers"  ],
   "exclude": [
     "./build/client"
   ]

@@ -1,6 +1,6 @@
 import newRouter from 'express-promise-router';
 
-import { readCards, readCard, createCard, updateCard, deleteCard } from './controllers/mongo.api';
+import { readCards, readCard, createCard, updateCard, deleteCard } from './db/controllers/mongo.api';
 
 const router = newRouter();
 
