@@ -1,5 +1,6 @@
 import express, {Request, Response} from "express";
-import appRouter from './router';
+import bugRouter from './routes/bug.router';
+import userRouter from './routes/user.router';
 import { connectToDatabase } from './db/services/mongo.connection';
 import path from 'path';
 
@@ -18,7 +19,8 @@ app.get( "/", (_req: Request, res: Response ) => {
 connectToDatabase()
   .then(() => {
     app.use(express.json());
-    app.use('/db', appRouter);
+    app.use('/bug', bugRouter);
+    app.use('/user', userRouter);
     app.listen( port, () => {
       // tslint:disable-next-line:no-console
         console.log( `server started at http://localhost:${ port }` );

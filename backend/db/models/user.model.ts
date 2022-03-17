@@ -1,10 +1,11 @@
 import { ObjectId } from "mongodb";
+import Role from './roles.model';
 
 export default class User {
   constructor(
-    public name: string, 
+    public name: string,
     public email: string, 
     public password: string,
-    public roles: [string],
+    public role: Role,
     public id?: ObjectId) {}
 }
