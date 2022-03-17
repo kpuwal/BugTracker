@@ -42,7 +42,7 @@ export async function connectToDatabase () {
  
   const bugsCollection: mongoDB.Collection = db.collection(`${process.env.BUGS_COLLECTION_NAME}`);
 
-  const usersCollection: mongoDB.Collection = db.collection(`${process.env.USERSS_COLLECTION_NAME}`);
+  const usersCollection: mongoDB.Collection = db.collection(`${process.env.USERS_COLLECTION_NAME}`);
 
   collections.bugs = bugsCollection;
   collections.users = usersCollection;
