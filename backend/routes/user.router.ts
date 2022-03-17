@@ -10,6 +10,7 @@ router.get('/:id', getUser);
 router.post('/register', registerUser);
 // router.post('/signup', signupUser);
 // router.post('/signin', signinUser);
-// router.put('/change/:id', changePassUser);
+// router.put('/change/:id', resetPassword);
+// router.put('/forgot/:id', forgotPassword);
 
 export default router;

@@ -30,8 +30,9 @@ export const readCard = async (req: Request, res: Response) => {
 
 export const createCard = async (req: Request, res: Response) => {
   try {
-      const newBug = req.body as Bug;
-      const result = await collections.bugs.insertOne(newBug);
+      const {name, description, category} = req.body as Bug;
+      const obj = new Bug(name, description, category);
+      const result = await collections.bugs.insertOne(obj);
 
       result
           ? res.status(201).send(`Successfully created a new bug with id ${result.insertedId}`)
