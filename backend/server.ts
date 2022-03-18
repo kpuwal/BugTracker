@@ -3,6 +3,11 @@ import bugRouter from './routes/bug.router';
 import userRouter from './routes/user.router';
 import { connectToDatabase } from './db/services/mongo.connection';
 import path from 'path';
+import cors from 'cors';
+
+var corsOptions = {
+  origin: "http://localhost:3000"
+};
 
 const app = express();
 const port = 8080; // default port to listen
@@ -19,6 +24,9 @@ app.get( "/", (_req: Request, res: Response ) => {
 connectToDatabase()
   .then(() => {
     app.use(express.json());
+    app.use(cors(corsOptions));
+    app.use(express.urlencoded({ extended: true }));
+    
     app.use('/bug', bugRouter);
     app.use('/user', userRouter);
     app.listen( port, () => {

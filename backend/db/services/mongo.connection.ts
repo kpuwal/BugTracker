@@ -1,8 +1,7 @@
 import * as mongoDB from "mongodb";
 import * as dotenv from "dotenv";
-import User from '../models/user.model';
 
-export const collections: { bugs?: mongoDB.Collection, users?: mongoDB.Collection } = {};
+export const collections: { bugs?: mongoDB.Collection, users?: mongoDB.Collection, roles?: mongoDB.Collection } = {};
 
 export async function connectToDatabase () {
   dotenv.config();
@@ -44,8 +43,11 @@ export async function connectToDatabase () {
 
   const usersCollection: mongoDB.Collection = db.collection(`${process.env.USERS_COLLECTION_NAME}`);
 
+  const rolesCollection: mongoDB.Collection = db.collection(`${process.env.ROLES_COLLECTION_NAME}`);
+
   collections.bugs = bugsCollection;
   collections.users = usersCollection;
+  collections.roles = rolesCollection;
 
-  console.log(`Successfully connected to database: ${db.databaseName} and bugs collection: ${bugsCollection.collectionName} plus ${usersCollection.collectionName}`);
+  console.log(`👍 Successfully connected to the database: ${db.databaseName} and bugs collection: ${bugsCollection.collectionName} plus ${usersCollection.collectionName} plus ${rolesCollection.collectionName}`);
 }

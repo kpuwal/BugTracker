@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import Role from './roles.model';
+import Role from './role.model';
 
 export default class User {
   constructor(
