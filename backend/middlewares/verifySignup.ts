@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { collections } from '../db/services/mongo.connection';
 
-const checkDuplicateUsername = async (req: Request, res: Response, next: NextFunction) => {
+export const checkDuplicateUsername = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const query = { name: req.body.username};
     const username = (await collections.users.findOne(query));
@@ -14,7 +14,7 @@ const checkDuplicateUsername = async (req: Request, res: Response, next: NextFun
   next();
 };
 
-const checkDuplicateEmail = async (req: Request, res: Response, next: NextFunction) => {
+export const checkDuplicateEmail = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const query = { name: req.body.email};
     const email = (await collections.users.findOne(query));
@@ -27,7 +27,7 @@ const checkDuplicateEmail = async (req: Request, res: Response, next: NextFuncti
   next();
 }
 
-const checkRolesExisted = async (req: Request, res: Response, next: NextFunction) => {
+export const checkRolesExisted = async (req: Request, res: Response, next: NextFunction) => {
   const role = req.body.role;
   if (role) {
     try {
@@ -44,12 +44,3 @@ const checkRolesExisted = async (req: Request, res: Response, next: NextFunction
   }
   next();
 };
-
-
-const verifySignUp = {
-  checkDuplicateUsername,
-  checkDuplicateEmail,
-  checkRolesExisted
-};
-
-export default verifySignUp;
