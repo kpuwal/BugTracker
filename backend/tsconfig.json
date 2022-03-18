@@ -16,7 +16,7 @@
   },
   "include": [
       "*"
-, "db/controllers"  ],
+, "db/controllers", "controllers/auth.api.ts", "controllers/bug.api.ts"  ],
   "exclude": [
     "./build/client"
   ]

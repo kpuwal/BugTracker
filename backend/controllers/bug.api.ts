@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { collections } from "../services/mongo.connection";
+import { collections } from "../db/services/mongo.connection";
 import { ObjectId } from "mongodb";
-import Bug from "../models/bug.model";
+import Bug from "../db/models/bug.model";
 
 export const readCards = async (_req: Request, res: Response) => {
   try {
