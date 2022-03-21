@@ -3,10 +3,10 @@ import { collections } from '../db/services/mongo.connection';
 
 export const checkDuplicateUsername = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const query = { name: req.body.username};
-    const username = (await collections.users.findOne(query));
-    if (username) {
-      res.status(200).send("Username is already in use!!");
+    const query = { name: req.body.name};
+    const name = (await collections.users.findOne(query));
+    if (name) {
+      return res.status(409).send("Name is already in use!!");
     }
   } catch (error) {
     res.status(500).send(error.message);
@@ -16,10 +16,10 @@ export const checkDuplicateUsername = async (req: Request, res: Response, next: 
 
 export const checkDuplicateEmail = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const query = { name: req.body.email};
+    const query = { email: req.body.email};
     const email = (await collections.users.findOne(query));
     if (email) {
-      res.status(200).send("Email is already in use!!");
+      return res.status(409).send("Email is already in use!!");
     }
   } catch (error) {
     res.status(500).send(error.message);

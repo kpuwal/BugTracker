@@ -2,10 +2,9 @@ import * as mongoDB from "mongodb";
 import * as dotenv from "dotenv";
 
 export const collections: { bugs?: mongoDB.Collection, users?: mongoDB.Collection, roles?: mongoDB.Collection } = {};
+dotenv.config();
 
 export async function connectToDatabase () {
-  dotenv.config();
-
   const client: mongoDB.MongoClient = new mongoDB.MongoClient(process.env.DB_CONN_STRING);
           
   await client.connect();

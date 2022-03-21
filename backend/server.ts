@@ -11,20 +11,20 @@ var corsOptions = {
 const app = express();
 const port = 8080; // default port to listen
 
-app.use(express.static(path.resolve("./") + "/build/client"));
-app.get( "/", (_req: Request, res: Response ) => {
-  res.send( "server is up and running..." );
-} );
-
-// app.get('*', (_req: Request, res: Response) => {
-//   res.sendFile(path.join(__dirname, './build/client', 'index.html'));
-// });
-
 connectToDatabase()
   .then(() => {
     app.use(express.json());
     app.use(cors(corsOptions));
     app.use(express.urlencoded({ extended: true }));
+
+    // app.use(express.static(path.resolve("./") + "/build/client"));
+    app.get( "/", (_req: Request, res: Response ) => {
+      res.send( "server is up and running..." );
+    } );
+
+    // app.get('*', (_req: Request, res: Response) => {
+    //   res.sendFile(path.join(__dirname, './build/client', 'index.html'));
+    // });
 
     app.use('/auth', authRouter);
     app.listen( port, () => {
