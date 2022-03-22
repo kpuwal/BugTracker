@@ -3,7 +3,7 @@ import { collections } from "../db/services/mongo.connection";
 import { ObjectId } from "mongodb";
 import Bug from "../db/models/bug.model";
 
-export const readCards = async (_req: Request, res: Response) => {
+export const readBugs = async (_req: Request, res: Response) => {
   try {
     const bugs = await collections.bugs.find({}).toArray();
 
@@ -13,7 +13,7 @@ export const readCards = async (_req: Request, res: Response) => {
   }
 }
 
-export const readCard = async (req: Request, res: Response) => {
+export const readBug = async (req: Request, res: Response) => {
   const id = req?.params?.id;
 
   try {
@@ -28,7 +28,7 @@ export const readCard = async (req: Request, res: Response) => {
   }
 }
 
-export const createCard = async (req: Request, res: Response) => {
+export const createBug = async (req: Request, res: Response) => {
   try {
       const {name, description, category} = req.body as Bug;
       const obj = new Bug(name, description, category);
@@ -43,7 +43,7 @@ export const createCard = async (req: Request, res: Response) => {
   }
 }
 
-export const updateCard = async (req: Request, res: Response) => {
+export const updateBug = async (req: Request, res: Response) => {
   const id = req?.params?.id;
 
   try {
@@ -61,7 +61,7 @@ export const updateCard = async (req: Request, res: Response) => {
   }
 }
 
-export const deleteCard = async (req: Request, res: Response) => {
+export const deleteBug = async (req: Request, res: Response) => {
   const id = req?.params?.id;
 
   try {

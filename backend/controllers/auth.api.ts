@@ -26,7 +26,7 @@ export const registerUser = async (req: Request, res: Response) => {
   }
 }
 
-export const signInUser = async (req: Request, res: Response) => {
+export const logInUser = async (req: Request, res: Response) => {
   const email: string = req.body.email;
 
   try {
