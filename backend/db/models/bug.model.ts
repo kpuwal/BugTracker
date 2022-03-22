@@ -7,9 +7,9 @@ export default class Bug {
     public name: string, 
     public description: string, 
     public category: string,
-    public createdBy: User,
-    public workedOnBy: User[],
-    public status: Status,
+    public createdBy?: User,
+    public workedOnBy?: User[],
+    public status?: Status,
     public date?: Date,
     public _id?: ObjectId) {
       this.date = new Date();

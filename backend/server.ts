@@ -1,6 +1,10 @@
 import express, {Request, Response} from "express";
 import { connectToDatabase } from './db/services/mongo.connection';
 import authRouter from './routes/auth.routes';
+import userRouter from './routes/user.routes';
+import moderatorRouter from './routes/moderator.routes';
+import adminRouter from './routes/admin.routes';
+
 import path from 'path';
 import cors from 'cors';
 
@@ -27,6 +31,10 @@ connectToDatabase()
     // });
 
     app.use('/auth', authRouter);
+    app.use('/user', userRouter);
+    app.use('/moderator', moderatorRouter);
+    app.use('/admin', adminRouter);
+
     app.listen( port, () => {
       // tslint:disable-next-line:no-console
         console.log( `server started at http://localhost:${ port }` );

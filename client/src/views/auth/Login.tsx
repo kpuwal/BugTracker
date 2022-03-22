@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Bug from '../../assets/img/bug.png';
+import Bug from '../../assets/img/car.png';
 
 export default function Login() {
   return (
@@ -10,13 +10,13 @@ export default function Login() {
           <div className="w-full lg:w-4/12 px-4">
             <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-sm rounded-lg bg-blueGray-50 border-0">
               
-              <div className="text-center" style={{alignSelf: 'center'}}>
+              <div className="text-center" style={{alignSelf: 'center', alignItems: 'center'}}>
                 <img 
                   src={Bug} 
-                  style={{width: '80px', height:'80px'}}
+                  style={{width: '60px', height:'60px', justifyContent: 'center'}}
                   alt='logo' 
                 />
-                <code>BugTracker</code>
+                <code>BugTrucker</code>
               </div>
 
               <div className="flex-auto px-4 lg:px-10 py-10 pt-0">

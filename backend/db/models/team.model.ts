@@ -6,9 +6,9 @@ export default class Team {
   constructor(
     public name: string, 
     public description: string, 
-    public belongsTo: User,
-    public users: User[],
-    public cards: Bug[],
+    public belongsTo?: User,
+    public users?: User[],
+    public bugs?: Bug[],
     public date?: Date,
     public _id?: ObjectId) {
       this.date = new Date();
