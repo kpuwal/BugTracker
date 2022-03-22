@@ -1,6 +1,5 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import Bug from '../../assets/img/car.png';
+import Logo from '../../assets/img/car.png';
 
 type LoginProps = {
   register?: boolean,
@@ -16,7 +15,7 @@ export default function Login({register}: LoginProps) {
               
               <div className="py-3" style={{alignSelf: 'center'}}>
                 <img 
-                  src={Bug} 
+                  src={Logo} 
                   style={{width: '60px', height:'60px', marginLeft: '15px'}}
                   alt='logo' 
                 />
@@ -55,7 +54,8 @@ export default function Login({register}: LoginProps) {
                       placeholder="Password"
                     />
                   </div>
-                  { register &&
+
+                  {register ?
                     <div className="relative w-full mb-3">
                       <label
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -68,9 +68,8 @@ export default function Login({register}: LoginProps) {
                         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow-sm focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                         placeholder="Password"
                       />
-                  </div>
-                  }
-                 {!register && <div>
+                    </div>
+                  : <div>
                     <label className="inline-flex items-center cursor-pointer">
                       <input
                         id="customCheckLogin"
@@ -89,12 +88,15 @@ export default function Login({register}: LoginProps) {
                        hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                       type="button"
                     >
-                      {register ? "Register" : "Log In"}
+                      {
+                        register ? "Register" : "Log In"
+                      }
                     </button>
                   </div>
                 </form>
               </div>
             </div>
+
             <div className="flex flex-wrap mt-6 relative top-15-px">
               <div className="w-1/2" />
               {register ?
