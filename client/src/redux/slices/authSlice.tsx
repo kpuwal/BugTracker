@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { authInitStateType } from '../types';
 
 const initialState: authInitStateType = {
@@ -9,9 +9,13 @@ const initialState: authInitStateType = {
 }
 
 const authSlice = createSlice({
-  name: 'news',
+  name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    catchLogin: (state, action: PayloadAction<authInitStateType>) => {
+      Object.assign(state, action.payload);
+    }
+  },
   extraReducers: (builder) => {
     // builder.addCase(fetchTitles.fulfilled, (state, action) => {
     //   state.titles = action.payload
