@@ -1,15 +1,14 @@
 import { ObjectId } from "mongodb";
 import User from "./user.model";
-import Status from './status.model';
+import Bug from './bug.model';
 
-export default class Bug {
+export default class Team {
   constructor(
     public name: string, 
     public description: string, 
-    public category: string,
-    public createdBy: User,
-    public workedOnBy: User[],
-    public status: Status,
+    public belongsTo: User,
+    public users: User[],
+    public cards: Bug[],
     public date?: Date,
     public _id?: ObjectId) {
       this.date = new Date();

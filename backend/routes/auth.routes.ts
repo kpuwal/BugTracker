@@ -29,4 +29,11 @@ router.post('/team'); // create a team
 router.put('/team/:id'); // update a team
 router.delete('/team/:id'); // delete a team
 
+// Admin routes 
+router.get('/teams');
+router.get('/role/:id'); // get a role 
+router.post('/role'); // create a role
+router.put('/role/:id'); // update a role
+router.delete('/role/:id'); // delete a role
+
 export default router;
