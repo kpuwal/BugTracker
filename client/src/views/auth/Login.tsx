@@ -2,18 +2,22 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Bug from '../../assets/img/car.png';
 
-export default function Login() {
+type LoginProps = {
+  register?: boolean,
+}
+
+export default function Login({register}: LoginProps) {
   return (
     <>
-      <div className="container mx-auto px-4 h-full">
-        <div className="flex content-center items-center justify-center h-full">
+      {/* <div className="container mx-auto px-4 h-full"> */}
+        {/* <div className="flex content-center items-center justify-center h-full"> */}
           <div className="w-full lg:w-4/12 px-4">
-            <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-sm rounded-lg bg-blueGray-50 border-0">
+            <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-sm rounded-lg bg-blueGray-50 border-0 top-25-px">
               
-              <div className="text-center" style={{alignSelf: 'center', alignItems: 'center'}}>
+              <div className="py-3" style={{alignSelf: 'center'}}>
                 <img 
                   src={Bug} 
-                  style={{width: '60px', height:'60px', justifyContent: 'center'}}
+                  style={{width: '60px', height:'60px', marginLeft: '15px'}}
                   alt='logo' 
                 />
                 <code>BugTrucker</code>
@@ -51,7 +55,22 @@ export default function Login() {
                       placeholder="Password"
                     />
                   </div>
-                  <div>
+                  { register &&
+                    <div className="relative w-full mb-3">
+                      <label
+                        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                        htmlFor="grid-password"
+                      >
+                        Repeat Password
+                      </label>
+                      <input
+                        type="password"
+                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow-sm focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        placeholder="Password"
+                      />
+                  </div>
+                  }
+                 {!register && <div>
                     <label className="inline-flex items-center cursor-pointer">
                       <input
                         id="customCheckLogin"
@@ -62,7 +81,7 @@ export default function Login() {
                         Remember me
                       </span>
                     </label>
-                  </div>
+                  </div>}
 
                   <div className="text-center mt-6">
                     <button
@@ -70,31 +89,29 @@ export default function Login() {
                        hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                       type="button"
                     >
-                      Sign In
+                      {register ? "Register" : "Log In"}
                     </button>
                   </div>
                 </form>
               </div>
             </div>
-            <div className="flex flex-wrap mt-6 relative">
-              <div className="w-1/2">
-                <a
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                  className="text-blueGray-800"
-                >
-                  <small>Skip to demo version</small>
-                </a>
-              </div>
-              <div className="w-1/2 text-right">
-                <Link to="/auth/register" className="text-blueGray-800">
-                  <small>Create new account</small>
-                </Link>
-              </div>
+            <div className="flex flex-wrap mt-6 relative top-15-px">
+              <div className="w-1/2" />
+              {register ?
+                <div className="w-1/2 text-right">
+                  <Link to="/" className="text-blueGray-800">
+                    <small>Log In</small>
+                  </Link>
+                </div>
+                : <div className="w-1/2 text-right">
+                  <Link to="/register" className="text-blueGray-800">
+                    <small>Create new account</small>
+                  </Link>
+                </div>}
             </div>
           </div>
-        </div>
-      </div>
+        {/* </div> */}
+      {/* </div> */}
     </>
   );
 }
