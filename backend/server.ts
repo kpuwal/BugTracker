@@ -1,9 +1,9 @@
 import express, {Request, Response} from "express";
 import { connectToDatabase } from './db/services/mongo.connection';
-import authRouter from './routes/auth.routes';
-import userRouter from './routes/user.routes';
-import moderatorRouter from './routes/moderator.routes';
-import adminRouter from './routes/admin.routes';
+import authRoutes from './routes/auth.routes';
+import userRoutes from './routes/user.routes';
+import moderatorRoutes from './routes/moderator.routes';
+import adminRoutes from './routes/admin.routes';
 
 import path from 'path';
 import cors from 'cors';
@@ -30,10 +30,10 @@ connectToDatabase()
     //   res.sendFile(path.join(__dirname, './build/client', 'index.html'));
     // });
 
-    app.use('/auth', authRouter);
-    app.use('/user', userRouter);
-    app.use('/moderator', moderatorRouter);
-    app.use('/admin', adminRouter);
+    app.use('/auth', authRoutes);
+    app.use('/user', userRoutes);
+    app.use('/moderator', moderatorRoutes);
+    app.use('/admin', adminRoutes);
 
     app.listen( port, () => {
       // tslint:disable-next-line:no-console
