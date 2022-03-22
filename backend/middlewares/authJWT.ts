@@ -23,8 +23,7 @@ export const verifyToken = (req: Request, res: Response, next: NextFunction) => 
     return;
   }
 
-  //The token is valid for 1 hour
-  //We want to send a new token on every request
+  //The token is valid for 1 hour, send a new token on every request
   const { userId } = jwtPayload;
   const newToken = jwt.sign({ userId }, secret, {
     expiresIn: 60 * 60
