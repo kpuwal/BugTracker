@@ -102,7 +102,7 @@ export default function Login({register}: LoginProps) {
               {register ?
                 <div className="w-1/2 text-right">
                   <Link to="/" className="text-blueGray-800">
-                    <small>Log In</small>
+                    <small>Back To Log In</small>
                   </Link>
                 </div>
                 : <div className="w-1/2 text-right">
