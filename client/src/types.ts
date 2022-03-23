@@ -5,7 +5,7 @@ export type authType = {
   repeatPassword?: string,
 }
 
-export type MessageType = {
+export type Message = {
   message: string,
 }
 
