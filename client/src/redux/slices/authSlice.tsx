@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { authInitStateType } from '../types';
+import { authType } from '../../types';
 
-const initialState: authInitStateType = {
+const initialState: authType = {
   name: '',
   email: '',
   password: '',
@@ -12,9 +12,15 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    catchLogin: (state, action: PayloadAction<authInitStateType>) => {
+    updateUser: (state, action) => {
+      console.log("updateUser ", action.payload)
+      // state.name = action.payload.name
       Object.assign(state, action.payload);
-    }
+    },
+    registerUser: (state, action: PayloadAction<authType>) => {
+      console.log(action.payload)
+      Object.assign(state, action.payload);
+    },
   },
   extraReducers: (builder) => {
     // builder.addCase(fetchTitles.fulfilled, (state, action) => {
@@ -26,4 +32,5 @@ const authSlice = createSlice({
   },
 })
 
+export const { updateUser, registerUser } = authSlice.actions;
 export default authSlice.reducer;

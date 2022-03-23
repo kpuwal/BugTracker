@@ -1,11 +1,26 @@
+import {useState} from 'react';
 import { Link } from "react-router-dom";
 import Logo from '../../assets/img/car.png';
+import { authType } from "../../types";
+import { useAppDispatch } from '../../redux/store';
+import { updateUser } from '../../redux/slices/authSlice';
+
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faEye } from "@fortawesome/free-solid-svg-icons";
+// const eye = <FontAwesomeIcon icon={faEye} />;
 
 type LoginProps = {
   register?: boolean,
+  authData: authType,
 }
 
-export default function Login({register}: LoginProps) {
+export default function Login({register, authData}: LoginProps) {
+  const [passwordShown, setPasswordShown] = useState(false);
+  const dispatch = useAppDispatch();
+  const togglePasswordVisiblity = () => {
+    setPasswordShown(passwordShown ? false : true);
+  };
+
   return (
     <>
       {/* <div className="container mx-auto px-4 h-full"> */}
@@ -21,23 +36,41 @@ export default function Login({register}: LoginProps) {
                 />
                 <code>BugTrucker</code>
               </div>
-
+              
               <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
                 <div className="text-blueGray-400 text-center mb-3 font-bold">
                   <small></small>
                 </div>
-                <form>
+                <form onSubmit={(e) => dispatch(updateUser(e))}>
+                  {register && <div className="relative w-full mb-3">
+                    <label
+                      className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                      htmlFor="grid-password"
+                    >
+                      Name
+                    </label>
+                    <input
+                      type="name"
+                      className="border-0 px-3 py-2 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow-sm focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                      placeholder="name"
+                      value={authData.name}
+                      onChange={(e) => dispatch(updateUser({name: e.target.value}))}
+                    />
+                  </div>}
+
                   <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                       htmlFor="grid-password"
                     >
-                      Email
+                      Email *
                     </label>
                     <input
                       type="email"
-                      className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow-sm focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Email"
+                      className="border-0 px-3 py-2 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow-sm focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                      placeholder="email"
+                      value={authData.email}
+                      onChange={(e) => dispatch(updateUser({email: e.target.value}))}
                     />
                   </div>
 
@@ -46,13 +79,18 @@ export default function Login({register}: LoginProps) {
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                       htmlFor="grid-password"
                     >
-                      Password
+                      Password *
                     </label>
                     <input
-                      type="password"
-                      className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow-sm focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Password"
+                      type={passwordShown ? "text" : "password"}
+                      className="border-0 px-3 py-2 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow-sm focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                      placeholder="password"
+                      value={authData.password}
+                      onChange={(e) => dispatch(updateUser({password: e.target.value}))}
                     />
+                    <div style={{position: 'absolute', top: '50%', right: '5%'}}>
+                      <i onClick={togglePasswordVisiblity} className={!passwordShown ? "fa-solid fa-eye-slash text-blueGray-300" : "fa-solid fa-eye text-blueGray-300"}></i>
+                    </div>
                   </div>
 
                   {register ?
@@ -61,12 +99,14 @@ export default function Login({register}: LoginProps) {
                         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                         htmlFor="grid-password"
                       >
-                        Repeat Password
+                        Repeat Password *
                       </label>
                       <input
-                        type="password"
-                        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow-sm focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        placeholder="Password"
+                        type={passwordShown ? "text" : "password"}
+                        className="border-0 px-3 py-2 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow-sm focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        placeholder="repeat password"
+                        value={authData.repeatPassword}
+                        onChange={(e) => dispatch(updateUser({repeatPassword: e.target.value}))}
                       />
                     </div>
                   : <div>
@@ -86,7 +126,7 @@ export default function Login({register}: LoginProps) {
                     <button
                       className="bg-pink-500 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow-t
                        hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                      type="button"
+                      type="submit"
                     >
                       {
                         register ? "Register" : "Log In"
