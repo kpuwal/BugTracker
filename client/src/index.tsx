@@ -1,22 +1,17 @@
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Provider } from 'react-redux';
 
+import App from './App';
 import store from './redux/store';
-import Auth from './layouts/Auth';
-import Page404 from './layouts/Page404';
 import reportWebVitals from './reportWebVitals';
-
-import "@fortawesome/fontawesome-free/css/all.min.css";
-import "./assets/styles/tailwind.css";
 
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Auth />} />
-        <Route path="/register" element={<Auth register={true} />} />
-        <Route path="*" element={<Page404 />} />
+        <Route path="/" element={<App />} />
       </Routes>
     </BrowserRouter>
   </Provider>,
