@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Provider } from 'react-redux';
 
-import App from './App';
+import Login from './components/Login';
 import store from './redux/store';
 import reportWebVitals from './reportWebVitals';
 
@@ -11,7 +11,7 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />} />
+        <Route path="/" element={<Login />} />
       </Routes>
     </BrowserRouter>
   </Provider>,

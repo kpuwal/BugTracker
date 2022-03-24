@@ -9,15 +9,15 @@ const messageSlice = createSlice({
   name: 'message',
   initialState,
   reducers: {
-    setMessage: (_state, action) => {
-      return { message: action.payload };
+    setMessage: (state, action) => {
+      console.log("message ", action.payload)
+      state.message = action.payload;
     },
     clearMessage: () => {
-      return { message: "" };
+      return {message: ''}
     },
   },
 });
 
-const { reducer, actions } = messageSlice;
-export const { setMessage, clearMessage } = actions
-export default reducer;
+export const { setMessage, clearMessage } = messageSlice.actions;
+export default messageSlice.reducer;

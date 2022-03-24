@@ -3,7 +3,8 @@ import { setMessage } from './message.slice';
 import AuthService from '../../services/auth.service';
 import { authType, User, authSliceTypes } from '../../types';
 
-const user = JSON.parse(localStorage.getItem("user") || '{}') as User;
+// @ts-ignore
+const user = JSON.parse(localStorage.getItem("user"));
 
 export const register: AsyncThunk<any, authType, {}> = createAsyncThunk(
   "auth/register",
@@ -20,6 +21,7 @@ export const register: AsyncThunk<any, authType, {}> = createAsyncThunk(
     }
   }
 );
+
 export const login = createAsyncThunk(
   "auth/login",
   async ({email, password}: authType, thunkAPI) => {
@@ -34,6 +36,7 @@ export const login = createAsyncThunk(
     }
   }
 );
+
 export const logout = createAsyncThunk("auth/logout", async () => {
   await AuthService.logout();
 });
@@ -48,13 +51,14 @@ const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(register.fulfilled, (state, _action) => {
-      state.isLoggedIn = false;
+      state.isLoggedIn = true;
     })
     builder.addCase(register.rejected, (state, _action) => {
-      state.isLoggedIn = true;
+      state.isLoggedIn = false;
     })
     builder.addCase(login.fulfilled, (state, action) => {
       state.isLoggedIn = true;
+      console.log(action.payload.user)
       state.user = action.payload.user;
     })
     builder.addCase(login.rejected, (state, _action) => {
