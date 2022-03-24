@@ -4,6 +4,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Provider } from 'react-redux';
 
 import Login from './components/Login';
+import Register from './components/Register';
+
 import store from './redux/store';
 import reportWebVitals from './reportWebVitals';
 
@@ -12,6 +14,7 @@ ReactDOM.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter>
   </Provider>,

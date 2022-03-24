@@ -23,7 +23,7 @@ function Redirect({ to }: any) {
   return null;
 }
 
-const Login = () => {
+const Register = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
@@ -111,10 +111,10 @@ const Login = () => {
           </div>
         </div>
       )}
-      <Link to="/register" className="text-blueGray-800">
-        <small>Create new account</small>
+      <Link to="/" className="text-blueGray-800">
+        <small>Back to Login</small>
       </Link>
     </div>
   );
 };
-export default Login;
+export default Register;
