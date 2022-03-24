@@ -3,6 +3,7 @@ import { RootState, useAppDispatch } from '../redux/store';
 
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
@@ -22,10 +23,10 @@ function Redirect({ to }: any) {
   return null;
 }
 
-const Login = (props: any) => {
+const Login = () => {
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
-
   const { message } = useSelector((state: RootState) => state.message);
   const dispatch = useAppDispatch();
 
@@ -38,7 +39,7 @@ const Login = (props: any) => {
     password: "",
   };
 
-  let validationSchema = Yup.object({
+  const validationSchema = Yup.object({
     email: Yup
       .string()
       .required("This field is required!")
@@ -50,13 +51,12 @@ const Login = (props: any) => {
   });
 
   const handleLogin = (formValue: LoginTypes) => {
-    console.log('loging in...')
     const { email, password } = formValue;
     setLoading(true);
     dispatch(login({ email, password }))
       .unwrap()
       .then(() => {
-        props.history.push("/profile");
+        navigate("/profile"); // or props.history.push("/profile")
         window.location.reload();
       })
       .catch(() => {
