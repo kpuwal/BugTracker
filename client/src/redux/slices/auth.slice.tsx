@@ -54,7 +54,7 @@ const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(register.fulfilled, (state, _action) => {
-      state.isLoggedIn = true;
+      state.isLoggedIn = false;
     })
     builder.addCase(register.rejected, (state, _action) => {
       state.isLoggedIn = false;

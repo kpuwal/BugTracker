@@ -66,55 +66,55 @@ const Login = () => {
 
   if (isLoggedIn) {
     return <Redirect to="/profile" />;
-  }
-
-  return (
-    <div>
+  } else {
+    return (
       <div>
-        <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={handleLogin}
-        >
-          <Form>
-            <div>
-              <label>Email</label>
-              <Field name="email" type="text" />
-              <ErrorMessage
-                name="email"
-                component="div"
-              />
-            </div>
-            <div>
-              <label>Password</label>
-              <Field name="password" type="password" />
-              <ErrorMessage
-                name="password"
-                component="div"
-              />
-            </div>
-            <div>
-              <button type="submit" disabled={loading}>
-                {loading && (
-                  <span></span>
-                )}
-                <span>Login</span>
-              </button>
-            </div>
-          </Form>
-        </Formik>
-      </div>
-      {message && (
         <div>
-          <div>
-            {message}
-          </div>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleLogin}
+          >
+            <Form>
+              <div>
+                <label>Email</label>
+                <Field name="email" type="text" />
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                />
+              </div>
+              <div>
+                <label>Password</label>
+                <Field name="password" type="password" />
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                />
+              </div>
+              <div>
+                <button type="submit" disabled={loading}>
+                  {loading && (
+                    <span></span>
+                  )}
+                  <span>Login</span>
+                </button>
+              </div>
+            </Form>
+          </Formik>
         </div>
-      )}
-      <Link to="/register" className="text-blueGray-800">
-        <small>Create new account</small>
-      </Link>
-    </div>
-  );
+        {message && (
+          <div>
+            <div>
+              {message}
+            </div>
+          </div>
+        )}
+        <Link to="/register">
+          <small>Create new account</small>
+        </Link>
+      </div>
+    );
+  }
 };
 export default Login;

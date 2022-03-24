@@ -18,7 +18,6 @@ const Profile = () => {
 
   if (!currentUser) {
     return <Redirect to="/" />;
-    // console.log("no user!")
   } else {
     console.log("current ", currentUser)
     return (
@@ -46,7 +45,6 @@ const Profile = () => {
             currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
         </ul> */}
       </div>
-  
   );
 }
 };
