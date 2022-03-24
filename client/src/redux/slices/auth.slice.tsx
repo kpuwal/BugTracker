@@ -4,7 +4,7 @@ import AuthService from '../../services/auth.service';
 import { authType, User, authSliceTypes } from '../../types';
 
 // @ts-ignore
-const user = JSON.parse(localStorage.getItem("user"));
+const user = JSON.parse(localStorage.getItem("user")) as User;
 
 export const register: AsyncThunk<any, authType, {}> = createAsyncThunk(
   "auth/register",
