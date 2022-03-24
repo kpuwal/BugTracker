@@ -6,7 +6,7 @@ import { authType, User, authSliceTypes } from '../../types';
 // @ts-ignore
 const user = JSON.parse(localStorage.getItem("user") as User);
 
-export const register: AsyncThunk<any, authType, {}> = createAsyncThunk(
+export const register = createAsyncThunk(
   "auth/register",
   async ({name, email, password}: authType, thunkAPI) => {
     try {

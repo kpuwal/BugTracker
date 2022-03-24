@@ -32,7 +32,7 @@ const Login = () => {
 
   useEffect(() => {
     dispatch(clearMessage());
-  }, [dispatch, isLoggedIn]);
+  }, [dispatch]);
 
   const initialValues = {
     email: "",

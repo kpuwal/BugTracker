@@ -2,44 +2,45 @@ import React, { useState, useEffect  } from "react";
 import { RootState, useAppDispatch } from '../redux/store';
 
 import { useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-import { login } from "../redux/slices/auth.slice";
+import { register } from "../redux/slices/auth.slice";
 import { clearMessage } from "../redux/slices/message.slice";
 
-type LoginTypes = {
+type RegisterTypes = {
+  name: string,
   email: string,
   password: string,
-}
-
-function Redirect({ to }: any) {
-  let navigate = useNavigate();
-  useEffect(() => {
-    navigate(to);
-  });
-  return null;
+  repeatPassword?: string,
 }
 
 const Register = () => {
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+  // const [loading, setLoading] = useState(false);
+  const [successful, setSuccessful] = useState(false);
+  const { isLoggedIn } = useSelector((state: RootState) => state.auth);
   const { message } = useSelector((state: RootState) => state.message);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(clearMessage());
+    console.log("is logged? ", isLoggedIn)
+
   }, [dispatch, isLoggedIn]);
 
   const initialValues = {
+    name: "",
     email: "",
     password: "",
+    repeatPassword: "",
   };
 
   const validationSchema = Yup.object({
+    name: Yup
+      .string()
+      .required("This field is required!"),
     email: Yup
       .string()
       .required("This field is required!")
@@ -48,25 +49,24 @@ const Register = () => {
       .string()
       .required("This field is required!")
       .min(6, "Password is too short - should be 6 chars minimum"),
+    repeatPassword: Yup
+      .string()
+      .oneOf([Yup.ref('password'), null], 'Passwords must match')
+      .required('Password confirm is required'),
   });
 
-  const handleLogin = (formValue: LoginTypes) => {
-    const { email, password } = formValue;
-    setLoading(true);
-    dispatch(login({ email, password }))
+  const handleRegister = (formValue: RegisterTypes) => {
+    const { name, email, password } = formValue;
+    setSuccessful(false);
+    dispatch(register({ name, email, password }))
       .unwrap()
       .then(() => {
-        navigate("/profile"); // or props.history.push("/profile")
-        window.location.reload();
+        setSuccessful(true);
       })
       .catch(() => {
-        setLoading(false);
+        setSuccessful(false);
       });
   };
-
-  if (isLoggedIn) {
-    return <Redirect to="/profile" />;
-  }
 
   return (
     <div>
@@ -74,33 +74,50 @@ const Register = () => {
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
-          onSubmit={handleLogin}
+          onSubmit={handleRegister}
         >
           <Form>
-            <div>
-              <label>Email</label>
-              <Field name="email" type="text" />
-              <ErrorMessage
-                name="email"
-                component="div"
-              />
-            </div>
-            <div>
-              <label>Password</label>
-              <Field name="password" type="password" />
-              <ErrorMessage
-                name="password"
-                component="div"
-              />
-            </div>
-            <div>
-              <button type="submit" disabled={loading}>
-                {loading && (
-                  <span></span>
-                )}
-                <span>Login</span>
-              </button>
-            </div>
+            {!successful && (
+              <>
+                <div>
+                  <label>Name</label>
+                  <Field name="name" type="text" />
+                  <ErrorMessage
+                    name="name"
+                    component="div"
+                  />
+                </div>
+                <div>
+                  <label>Email</label>
+                  <Field name="email" type="text" />
+                  <ErrorMessage
+                    name="email"
+                    component="div"
+                  />
+                </div>
+                <div>
+                  <label>Password</label>
+                  <Field name="password" type="password" />
+                  <ErrorMessage
+                    name="password"
+                    component="div"
+                  />
+                </div>
+                <div>
+                  <label>Confirm Password</label>
+                  <Field name="repeatPassword" type="password" />
+                  <ErrorMessage
+                    name="repeatPassword"
+                    component="div"
+                  />
+                </div>
+                <div>
+                  <button type="submit">
+                    <span>Register</span>
+                  </button>
+                </div>
+              </>
+            )}
           </Form>
         </Formik>
       </div>
