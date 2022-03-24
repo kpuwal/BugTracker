@@ -94,22 +94,14 @@ const Login = () => {
               </div>
               <div>
                 <button type="submit" disabled={loading}>
-                  {loading && (
-                    <span></span>
-                  )}
                   <span>Login</span>
                 </button>
+                {loading && (<span>loading...</span>)}
               </div>
             </Form>
           </Formik>
         </div>
-        {message && (
-          <div>
-            <div>
-              {message}
-            </div>
-          </div>
-        )}
+        {message && (<div>{message}</div>)}
         <Link to="/register">
           <small>Create new account</small>
         </Link>

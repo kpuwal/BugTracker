@@ -1,14 +1,13 @@
-import React, { useState, useEffect  } from "react";
+import React, { useState } from "react";
 import { RootState, useAppDispatch } from '../redux/store';
 
 import { useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 import { register } from "../redux/slices/auth.slice";
-import { clearMessage } from "../redux/slices/message.slice";
 
 type RegisterTypes = {
   name: string,
@@ -18,17 +17,10 @@ type RegisterTypes = {
 }
 
 const Register = () => {
-  // const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-
+  const [loading, setLoading] = useState(false);
   const [successful, setSuccessful] = useState(false);
-  const { isLoggedIn } = useSelector((state: RootState) => state.auth);
   const { message } = useSelector((state: RootState) => state.message);
   const dispatch = useAppDispatch();
-
-  // useEffect(() => {
-  //   dispatch(clearMessage());
-  // }, [dispatch]);
 
   const initialValues = {
     name: "",
@@ -58,6 +50,7 @@ const Register = () => {
   const handleRegister = (formValue: RegisterTypes) => {
     const { name, email, password } = formValue;
     setSuccessful(false);
+    setLoading(true);
     dispatch(register({ name, email, password }))
       .unwrap()
       .then(() => {
@@ -65,6 +58,7 @@ const Register = () => {
       })
       .catch(() => {
         setSuccessful(false);
+        setLoading(false);
       });
   };
 
@@ -115,20 +109,14 @@ const Register = () => {
                   <button type="submit">
                     <span>Register</span>
                   </button>
+                  {loading && (<span>loading...</span>)}
                 </div>
               </>
             )}
           </Form>
         </Formik>
       </div>
-      {message && (
-        <div>
-          <div>
-            
-            {message}
-          </div>
-        </div>
-      )}
+      {message && (<div>{message}</div>)}
       <Link to="/">
         <small>Back to Login</small>
       </Link>

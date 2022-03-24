@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, AsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { setMessage } from './message.slice';
 import AuthService from '../../services/auth.service';
 import { authType, User, authSliceTypes } from '../../types';
@@ -40,9 +40,12 @@ export const login = createAsyncThunk(
   }
 );
 
-export const logout = createAsyncThunk("auth/logout", async () => {
-  await AuthService.logout();
-});
+export const logout = createAsyncThunk(
+  "auth/logout",
+  async () => {
+    AuthService.logout();
+  }
+);
 
 const initialState: authSliceTypes = user
 ? {isLoggedIn: true, user }
