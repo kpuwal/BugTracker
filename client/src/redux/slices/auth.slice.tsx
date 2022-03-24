@@ -5,13 +5,15 @@ import { authType, User, authSliceTypes } from '../../types';
 
 // @ts-ignore
 const user = JSON.parse(localStorage.getItem("user") as User);
+console.log("user from slice ", user)
 
 export const register = createAsyncThunk(
   "auth/register",
   async ({name, email, password}: authType, thunkAPI) => {
     try {
       const response = await AuthService.register({name, email, password});
-      thunkAPI.dispatch(setMessage(response.data.message));
+      console.log("slice response ", response.data.message)
+      thunkAPI.dispatch(setMessage((response.data.message).toString()));
       return response.data;
     } catch (error: any) {
       const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
@@ -25,6 +27,7 @@ export const register = createAsyncThunk(
 export const login = createAsyncThunk(
   "auth/login",
   async ({email, password}: authType, thunkAPI) => {
+    console.log(email)
     try {
       const data = await AuthService.login({email, password});
       return { user: data };

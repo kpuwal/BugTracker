@@ -2,7 +2,7 @@ import React, { useState, useEffect  } from "react";
 import { RootState, useAppDispatch } from '../redux/store';
 
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -19,16 +19,16 @@ type RegisterTypes = {
 
 const Register = () => {
   // const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
   const [successful, setSuccessful] = useState(false);
   const { isLoggedIn } = useSelector((state: RootState) => state.auth);
   const { message } = useSelector((state: RootState) => state.message);
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(clearMessage());
-    console.log("is logged? ", isLoggedIn)
-
-  }, [dispatch, isLoggedIn]);
+  // useEffect(() => {
+  //   dispatch(clearMessage());
+  // }, [dispatch]);
 
   const initialValues = {
     name: "",
@@ -124,11 +124,12 @@ const Register = () => {
       {message && (
         <div>
           <div>
+            
             {message}
           </div>
         </div>
       )}
-      <Link to="/" className="text-blueGray-800">
+      <Link to="/">
         <small>Back to Login</small>
       </Link>
     </div>

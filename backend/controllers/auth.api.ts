@@ -18,7 +18,7 @@ export const registerUser = async (req: Request, res: Response) => {
       
       const result = await collections.users.insertOne(user);
       return result
-          ? res.status(201).send(`Successfully created a new user with id ${result.insertedId}`)
+          ? res.status(200).send({message: `Successfully created a new user with id ${result.insertedId}`})
           : res.status(500).send("Failed to create a new user.");
   } catch (error) {
     console.log("catch error while registering")
@@ -28,6 +28,7 @@ export const registerUser = async (req: Request, res: Response) => {
 
 export const logInUser = async (req: Request, res: Response) => {
   const email: string = req.body.email;
+  console.log("email: ",email)
 
   try {
     const user = (await collections.users.findOne({email}));

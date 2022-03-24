@@ -11,10 +11,10 @@ const register = ({name, email, password}: authType) => {
   });
 }
 
-const login = ({name, password}: authType) => {
+const login = ({email, password}: authType) => {
   return axios
     .post(API_URL + "login", {
-      name,
+      email,
       password,
     })
     .then((response) => {

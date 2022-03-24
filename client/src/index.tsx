@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 
 import Login from './components/Login';
 import Register from './components/Register';
+import Profile from './components/Profile';
 
 import store from './redux/store';
 import reportWebVitals from './reportWebVitals';
@@ -15,6 +16,7 @@ ReactDOM.render(
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   </Provider>,
