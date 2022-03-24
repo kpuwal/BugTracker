@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
+
 import { login } from "../redux/slices/auth.slice";
 import { clearMessage } from "../redux/slices/message.slice";
 
@@ -29,7 +30,6 @@ const Login = (props: any) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    console.log(isLoggedIn, "<---")
     dispatch(clearMessage());
   }, [dispatch, isLoggedIn]);
 
@@ -38,9 +38,15 @@ const Login = (props: any) => {
     password: "",
   };
 
-  const validationSchema = Yup.object().shape({
-    email: Yup.string().required("This field is required!"),
-    password: Yup.string().required("This field is required!"),
+  let validationSchema = Yup.object({
+    email: Yup
+      .string()
+      .required("This field is required!")
+      .email("it's not an email"),
+    password: Yup
+      .string()
+      .required("This field is required!")
+      .min(6, "Password is too short - should be 6 chars minimum"),
   });
 
   const handleLogin = (formValue: LoginTypes) => {
@@ -63,36 +69,34 @@ const Login = (props: any) => {
   }
 
   return (
-    <div className="col-md-12 login-form">
-      <div className="card card-container">
+    <div>
+      <div>
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={handleLogin}
         >
           <Form>
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <Field name="email" type="text" className="form-control" />
+            <div>
+              <label>Email</label>
+              <Field name="email" type="text" />
               <ErrorMessage
                 name="email"
                 component="div"
-                className="alert alert-danger"
               />
             </div>
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <Field name="password" type="password" className="form-control" />
+            <div>
+              <label>Password</label>
+              <Field name="password" type="password" />
               <ErrorMessage
                 name="password"
                 component="div"
-                className="alert alert-danger"
               />
             </div>
-            <div className="form-group">
-              <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
+            <div>
+              <button type="submit" disabled={loading}>
                 {loading && (
-                  <span className="spinner-border spinner-border-sm"></span>
+                  <span></span>
                 )}
                 <span>Login</span>
               </button>
@@ -101,8 +105,8 @@ const Login = (props: any) => {
         </Formik>
       </div>
       {message && (
-        <div className="form-group">
-          <div className="alert alert-danger" role="alert">
+        <div>
+          <div>
             {message}
           </div>
         </div>
