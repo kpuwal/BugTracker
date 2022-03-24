@@ -1,7 +1,8 @@
 import React,{ useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
-import { RootState } from '../redux/store';
+import { RootState, useAppDispatch } from '../redux/store';
+import { logout } from "../redux/slices/auth.slice";
 
 function Redirect({ to }: any) {
   let navigate = useNavigate();
@@ -13,6 +14,8 @@ function Redirect({ to }: any) {
 
 const Profile = () => {
   const { user: currentUser } = useSelector((state: RootState) => state.auth);
+  const dispatch = useAppDispatch();
+
   if (!currentUser) {
     return <Redirect to="/" />;
     // console.log("no user!")
@@ -35,7 +38,9 @@ const Profile = () => {
         <p>
           <strong>Email:</strong> {currentUser.email}
         </p>
-        <strong>Authorities:</strong>
+        <button onClick={() => dispatch(logout())}>
+          LogOut
+        </button>
         {/* <ul>
           {currentUser.roles &&
             currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
