@@ -26,21 +26,3 @@ export const checkDuplicateEmail = async (req: Request, res: Response, next: Nex
   }
   next();
 }
-
-export const checkRolesExisted = async (req: Request, res: Response, next: NextFunction) => {
-  const role = req.body.role;
-  if (role) {
-    try {
-      const roles = await collections.roles.find({}).toArray();
-      if (!roles.includes(role)) {
-        res.status(400).send({
-          message: `Failed! Role ${role} does not exist!`
-        });
-        return;
-      }
-    } catch (error) {
-      res.status(500).send(error.message);
-    }
-  }
-  next();
-};

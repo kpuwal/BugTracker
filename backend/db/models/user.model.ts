@@ -7,7 +7,7 @@ export default class User {
     public name: string,
     public email: string, 
     public password: string,
-    public bugs: Bug[],
-    public role: Role,
+    public roles: Role[],
+    public bugs?: Bug[],
     public id?: ObjectId) {}
 }
