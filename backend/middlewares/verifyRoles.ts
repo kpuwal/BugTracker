@@ -10,7 +10,7 @@ export const isFirstUser = async (_req: Request, res: Response, next: NextFuncti
   } catch (error) {
     res.status(404).send(`Unable to find matching document with id: ${res.locals.jwtPayload.userId}`);
   }
-  // isFirst = false;
+  
   res.locals.isFirstUser = isFirst;
   next();
 }
