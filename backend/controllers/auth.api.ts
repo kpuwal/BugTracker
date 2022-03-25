@@ -1,18 +1,18 @@
-import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+import { Request, Response } from 'express';
+
+import { collections } from "../db/services/mongo.connection";
 
 import User from '../db/models/user.model';
 import Role from '../db/models/role.model';
 
-import { collections } from "../db/services/mongo.connection";
-
 const secret = process.env.AUTH_SECRET;
-const roles = ["user", "moderator", "admin"];
+const ROLES = ["user", "moderator", "admin"];
 
 export const registerUser = async (req: Request, res: Response) => {
+  const isFirstUser = res.locals.isFirstUser;
   let user;
-  const isFirstUser = res.locals.isFirst;
 
   try {
     if (isFirstUser) {
@@ -20,14 +20,14 @@ export const registerUser = async (req: Request, res: Response) => {
         name: req.body.name,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 8),
-        roles: [new Role(roles[0]), new Role(roles[2])],
+        roles: [new Role(ROLES[0]), new Role(ROLES[2])],
       } as User;
     } else {
       user = {
         name: req.body.name,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 8),
-        roles: [new Role(roles[0])],
+        roles: [new Role(ROLES[0])],
       } as User;
     }
 
@@ -36,14 +36,13 @@ export const registerUser = async (req: Request, res: Response) => {
       ? res.status(200).send({message: `Successfully created a new user with id ${result.insertedId}`})
       : res.status(500).send("Failed to create a new user.");
   } catch (error) {
-    console.log("catch error while registering")
     res.status(400).send(error.message);
   }
 }
 
 export const logInUser = async (req: Request, res: Response) => {
   const email: string = req.body.email;
-
+console.log("email", email)
   try {
     const user = (await collections.users.findOne({email}));
     if (!user) { res.status(404).send('user does not exist') };
@@ -59,11 +58,9 @@ export const logInUser = async (req: Request, res: Response) => {
         message: "Invalid Password!"
       });
     }
-    const token = jwt.sign({ id: user.id }, secret, {
+    const token = jwt.sign({ id: user._id }, secret, {
       expiresIn: 86400 // 24 hours
     });
-
-    console.log("token: ", token)
 
     res.status(200).send({
       id: user._id,
