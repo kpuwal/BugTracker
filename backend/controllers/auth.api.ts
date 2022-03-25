@@ -10,18 +10,9 @@ import { collections } from "../db/services/mongo.connection";
 const secret = process.env.AUTH_SECRET;
 const roles = ["user", "moderator", "admin"];
 
-const isFirst = async () => {
-  try {
-    const usersArr = await collections.users.find({}).toArray();
-    return usersArr.length === 0;
-  } catch (err) {
-    return false;
-  }
-}
-
 export const registerUser = async (req: Request, res: Response) => {
   let user;
-  const isFirstUser = await isFirst();
+  const isFirstUser = res.locals.isFirst;
 
   try {
     if (isFirstUser) {
@@ -39,7 +30,7 @@ export const registerUser = async (req: Request, res: Response) => {
         roles: [new Role(roles[0])],
       } as User;
     }
-    
+
     const result = await collections.users.insertOne(user);
     return result
       ? res.status(200).send({message: `Successfully created a new user with id ${result.insertedId}`})

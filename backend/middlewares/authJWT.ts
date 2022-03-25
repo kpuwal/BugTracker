@@ -1,8 +1,5 @@
 import jwt, { VerifyOptions, JwtPayload } from 'jsonwebtoken';
-import { ObjectId } from 'mongodb';
 import { Request, Response, NextFunction } from 'express';
-
-import { collections } from '../db/services/mongo.connection';
 
 const secret = process.env.AUTH_SECRET;
 
@@ -32,34 +29,3 @@ export const verifyToken = (req: Request, res: Response, next: NextFunction) => 
   res.setHeader("token", newToken);
   next();
 };
-
-export const isAdmin = async (req: Request, res: Response, next: NextFunction) => {
-  // const id = req.body.id;
-  const id = res.locals.jwtPayload.userId
-
-  try {
-    const query = { _id: new ObjectId(id) };
-    const user = (await collections.users.findOne(query));
-    
-    if (user) {
-      res.status(200).send(user.role === 'admin');
-    }
-  } catch (error) {
-      res.status(404).send(`Unable to find matching document with id: ${req.params.id}`);
-  }
-}
-
-export const isModerator = async (req: Request, res: Response, next: NextFunction) => {
-  const id = res.locals.jwtPayload.userId
-
-  try {
-    const query = { _id: new ObjectId(id) };
-    const user = (await collections.users.findOne(query));
-    
-    if (user) {
-      res.status(200).send(user.role === 'moderator');
-    }
-  } catch (error) {
-      res.status(404).send(`Unable to find matching document with id: ${req.params.id}`);
-  }
-}
