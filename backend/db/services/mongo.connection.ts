@@ -44,6 +44,8 @@ export async function connectToDatabase () {
 
   const rolesCollection: mongoDB.Collection = db.collection(`${process.env.ROLES_COLLECTION_NAME}`);
 
+
+
   collections.bugs = bugsCollection;
   collections.users = usersCollection;
   collections.roles = rolesCollection;

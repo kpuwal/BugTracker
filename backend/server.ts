@@ -9,11 +9,12 @@ import path from 'path';
 import cors from 'cors';
 
 var corsOptions = {
-  origin: "http://localhost:3000"
+  origin: process.env.CLIENT_URL,
+  credentials: true,
 };
 
 const app = express();
-const port = 8080; // default port to listen
+const port = process.env.PORT || 8080; // default port to listen
 
 connectToDatabase()
   .then(() => {
