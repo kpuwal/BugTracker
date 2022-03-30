@@ -10,7 +10,7 @@ import cors from 'cors';
 
 var corsOptions = {
   origin: process.env.CLIENT_URL,
-  credentials: true,
+  // credentials: true,
 };
 
 const app = express();

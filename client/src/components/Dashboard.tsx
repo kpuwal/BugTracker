@@ -5,9 +5,9 @@ const Dashboard = () => {
   const [content, setContent] = useState("");
 
   useEffect(() => {
-    UserService.getUserDashboard().then(
+    UserService.getAdminDashboard().then(
       (response) => {
-        setContent(response.data);
+        setContent(response.data.role);
       },
       (error) => {
         const _content =

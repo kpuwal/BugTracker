@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { collections } from '../db/services/mongo.connection';
 import { ObjectId } from 'mongodb';
+import Role from '../db/models/role.model';
+import { networkInterfaces } from 'os';
 
 export const isFirstUser = async (_req: Request, res: Response, next: NextFunction) => {
   let isFirst;
@@ -8,9 +10,9 @@ export const isFirstUser = async (_req: Request, res: Response, next: NextFuncti
     const usersArr = await collections.users.find({}).toArray();
     isFirst = usersArr.length === 0;
   } catch (error) {
-    res.status(404).send(`Unable to find matching document with id: ${res.locals.jwtPayload.userId}`);
+    res.status(404).send(`Unable to find matching document with id: ${res.locals.jwtPayload.id}`);
   }
-  
+
   res.locals.isFirstUser = isFirst;
   next();
 }
@@ -21,15 +23,15 @@ export const isAdmin = async (_req: Request, res: Response, _next: NextFunction)
   try {
     const query = { _id: new ObjectId(id) };
     const user = (await collections.users.findOne(query));
-    const isAdmin = user.roles.includes("admin");
-    
+    const isAdmin = user.roles.find((el: Role) => el.name === "admin");
+  
     if (isAdmin) {
-      res.status(200).send(user.role === 'admin');
+      res.status(200).send({role: "admin"});
     } else {
       res.status(401).send('Unauthorized');
     }
   } catch (error) {
-      res.status(404).send(`Unable to find matching document with id: ${res.locals.jwtPayload.userId}`);
+      res.status(404).send(`Unable to find matching document with id: ${res.locals.jwtPayload.id}`);
   }
 }
 
@@ -39,14 +41,36 @@ export const isModerator = async (_req: Request, res: Response, _next: NextFunct
   try {
     const query = { _id: new ObjectId(id) };
     const user = (await collections.users.findOne(query));
-    const isModerator = user.roles.includes("moderator");
+    const isModerator = user.roles.find((el: Role) => el.name === "moderator");
     
     if (isModerator) {
-      res.status(200).send(user.role === 'moderator');
+      res.status(200).send({role: "moderator"});
     } else {
       res.status(401).send('Unauthorized');
     }
   } catch (error) {
-      res.status(404).send(`Unable to find matching document with id: ${res.locals.jwtPayload.userId}`);
+      res.status(404).send(`Unable to find matching document with id: ${res.locals.jwtPayload.id}`);
   }
+}
+
+export const findRole = async (_req: Request, res: Response, next: NextFunction) => {
+  const id = res.locals.jwtPayload.id;
+
+  try {
+    const query = { _id: new ObjectId(id) };
+    const user = (await collections.users.findOne(query));
+    const isAdmin = user.roles.find((el: Role) => el.name === "admin");
+    const isModerator = user.roles.find((el: Role) => el.name === "moderator");
+  
+    if (isAdmin) {
+      res.locals.role = "admin";
+    } else if (isModerator) {
+      res.locals.role = "moderator";
+    } else {
+      res.locals.role = "user";
+    }
+  } catch (error) {
+      res.status(404).send(`Unable to find matching document with id: ${res.locals.jwtPayload.id}`);
+  }
+  next()
 }

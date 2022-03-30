@@ -42,7 +42,8 @@ export const registerUser = async (req: Request, res: Response) => {
 
 export const logInUser = async (req: Request, res: Response) => {
   const email: string = req.body.email;
-console.log("email", email)
+  let highestRole;
+
   try {
     const user = (await collections.users.findOne({email}));
     if (!user) { res.status(404).send('user does not exist') };
@@ -58,14 +59,28 @@ console.log("email", email)
         message: "Invalid Password!"
       });
     }
-    const token = jwt.sign({ id: user._id }, secret, {
-      expiresIn: 86400 // 24 hours
+
+    const isAdmin = user.roles.find((el: Role) => el.name === "admin");
+    const isModerator = user.roles.find((el: Role) => el.name === "moderator");
+  
+    if (isAdmin) {
+      highestRole = "admin";
+    } else if (isModerator) {
+      highestRole = "moderator";
+    } else {
+      highestRole = "user";
+    }
+
+    const token = jwt.sign({ id: user._id, name: user.name }, secret, {
+      expiresIn: 9000
     });
 
     res.status(200).send({
       id: user._id,
       username: user.name,
       email: user.email,
+      roles: user.roles,
+      role: highestRole,
       accessToken: token
     });
   } catch (error) {
