@@ -3,7 +3,6 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from '../redux/store';
 import { logout } from "../redux/slices/auth.slice";
-import { User } from "../types"
 
 function Redirect({ to }: any) {
   let navigate = useNavigate();

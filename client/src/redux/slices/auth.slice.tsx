@@ -5,14 +5,12 @@ import { authType, User, authSliceTypes } from '../../types';
 
 // @ts-ignore
 const user = JSON.parse(localStorage.getItem("user") as User);
-console.log("user from slice ", user)
 
 export const register = createAsyncThunk(
   "auth/register",
   async ({name, email, password}: authType, thunkAPI) => {
     try {
       const response = await AuthService.register({name, email, password});
-      console.log("slice response ", response.data.message)
       thunkAPI.dispatch(setMessage((response.data.message).toString()));
       return response.data;
     } catch (error: any) {
@@ -64,7 +62,6 @@ const authSlice = createSlice({
     })
     builder.addCase(login.fulfilled, (state, action) => {
       state.isLoggedIn = true;
-      console.log(action.payload.user)
       state.user = action.payload.user;
     })
     builder.addCase(login.rejected, (state, _action) => {

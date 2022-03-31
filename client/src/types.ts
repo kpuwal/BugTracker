@@ -13,9 +13,8 @@ export type User = {
   id: number,
   name: string,
   email: string,
-  accessToken: string,
-  roles: string,
   role: string,
+  accessToken: string,
 }
 
 export type authSliceTypes = {
