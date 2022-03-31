@@ -1,32 +1,11 @@
-import React, { useState, useEffect } from "react";
-import UserService from "../services/user.service";
 import { Link } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { RootState } from '../redux/store';
-import AdminDashboard from './AdminDashboard'
+import AdminDashboard from './AdminDashboard';
+import ModeratorDashboard from './ModeratorDashboard';
 
 const UserDashboard = () => {
-  // const [content, setContent] = useState("");
   const { user: currentUser } = useSelector((state: RootState) => state.auth);
-
-  // useEffect(() => {
-  //   UserService.getUserDashboard().then(
-  //     (response) => {
-  //       console.log("response: ", response.data)
-  //       setContent(response.data);
-  //     },
-  //     (error) => {
-  //       const _content =
-  //         (error.response &&
-  //           error.response.data &&
-  //           error.response.data.message) ||
-  //         error.message ||
-  //         error.toString();
-  //       setContent(_content);
-  //     }
-  //   );
-  //   console.log(content)
-  // }, []);
 
   return (
     <div>
@@ -40,13 +19,17 @@ const UserDashboard = () => {
         currentUser !== null && currentUser.role === "admin" && <AdminDashboard />
       }
       {
+        currentUser !== null && (currentUser.role === "moderator" || currentUser.role === "admin") && <ModeratorDashboard />
+      }
+      {
         currentUser !== null && 
         <>
+          <p>---MY PROFILE---</p>
+          <p>my TEAMS</p>
+          <p>my CARDS</p>
           <p>---BUG CARDS---</p>
           <p>(implicit) get all bug cards</p>
-          <p>create a bug card</p>
           <p>update a bug card</p>
-          <p>delete a bug card</p>
           <p>---FIND CARDS---</p>
           <p>get only TO DO cards</p>
           <p>get only DOING cards</p>
