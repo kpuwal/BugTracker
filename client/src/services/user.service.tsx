@@ -4,6 +4,12 @@ import authHeader from './auth-header';
 
 const API_URL = process.env.REACT_APP_URL_USER;
 
+const getDashboard = (role: string) => {
+  const requestConfig: AxiosRequestConfig = { headers: authHeader() };
+  console.log("url: ", API_URL + `${role}/dashboard`)
+  return axios.get(API_URL + `${role}/dashboard`, requestConfig);
+};
+
 const getUserDashboard = () => {
   const requestConfig: AxiosRequestConfig = { headers: authHeader() };
   return axios.get(API_URL + 'user/dashboard', requestConfig);
@@ -17,6 +23,7 @@ const getAdminDashboard = () => {
   return axios.get(API_URL + 'admin/dashboard', requestConfig);
 };
 const userService = {
+  getDashboard,
   getUserDashboard,
   getModeratorDashboard,
   getAdminDashboard,

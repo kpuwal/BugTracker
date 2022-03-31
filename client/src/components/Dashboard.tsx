@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from "react";
 import UserService from "../services/user.service";
+import { Link } from 'react-router-dom';
+import { useSelector } from "react-redux";
+import { RootState } from '../redux/store';
 
 const Dashboard = () => {
   const [content, setContent] = useState("");
+  const { user: currentUser } = useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
-    UserService.getAdminDashboard().then(
+    console.log(currentUser)
+    UserService.getDashboard(currentUser === null ? "user" : currentUser.role).then(
       (response) => {
-        setContent(response.data.role);
+        console.log("response: ", response.data)
+        setContent(response.data);
       },
       (error) => {
         const _content =
@@ -19,14 +25,14 @@ const Dashboard = () => {
         setContent(_content);
       }
     );
-  }, []);
-
+  }, [currentUser]);
 
   return (
     <div>
       <header>
         <h3>{content}</h3>
       </header>
+      <Link to="/profile">go to profile</Link>
     </div>
   );
 };

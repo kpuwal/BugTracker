@@ -56,7 +56,7 @@ const Login = () => {
     dispatch(login({ email, password }))
       .unwrap()
       .then(() => {
-        navigate("/profile"); // or props.history.push("/profile")
+        navigate("/dashboard"); // or props.history.push("/profile")
         window.location.reload();
       })
       .catch(() => {
@@ -65,7 +65,7 @@ const Login = () => {
   };
 
   if (isLoggedIn) {
-    return <Redirect to="/profile" />;
+    return <Redirect to="/dashboard" />;
   } else {
     return (
       <div>

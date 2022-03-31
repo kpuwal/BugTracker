@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from 'express';
 import { collections } from '../db/services/mongo.connection';
 import { ObjectId } from 'mongodb';
 import Role from '../db/models/role.model';
-import { networkInterfaces } from 'os';
 
 export const isFirstUser = async (_req: Request, res: Response, next: NextFunction) => {
   let isFirst;
@@ -17,7 +16,7 @@ export const isFirstUser = async (_req: Request, res: Response, next: NextFuncti
   next();
 }
 
-export const isAdmin = async (_req: Request, res: Response, _next: NextFunction) => {
+export const isAdmin = async (_req: Request, res: Response, next: NextFunction) => {
   const id = res.locals.jwtPayload.id;
 
   try {
@@ -25,14 +24,13 @@ export const isAdmin = async (_req: Request, res: Response, _next: NextFunction)
     const user = (await collections.users.findOne(query));
     const isAdmin = user.roles.find((el: Role) => el.name === "admin");
   
-    if (isAdmin) {
-      res.status(200).send({role: "admin"});
-    } else {
+    if (!isAdmin) {
       res.status(401).send('Unauthorized');
     }
   } catch (error) {
       res.status(404).send(`Unable to find matching document with id: ${res.locals.jwtPayload.id}`);
   }
+  next();
 }
 
 export const isModerator = async (_req: Request, res: Response, _next: NextFunction) => {

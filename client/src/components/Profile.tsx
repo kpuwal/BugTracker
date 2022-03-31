@@ -39,7 +39,7 @@ const Profile = () => {
           <strong>Email:</strong> {currentUser.email}
         </p>
         <p>
-         <Link to="/admin">go to admin dashboard</Link>
+         <Link to="/dashboard">go to dashboard</Link>
         </p>
         <button onClick={() => dispatch(logout())}>
           LogOut
