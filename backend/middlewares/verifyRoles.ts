@@ -33,7 +33,7 @@ export const isAdmin = async (_req: Request, res: Response, next: NextFunction) 
   next();
 }
 
-export const isModerator = async (_req: Request, res: Response, _next: NextFunction) => {
+export const isModerator = async (_req: Request, res: Response, next: NextFunction) => {
   const id = res.locals.jwtPayload.id;
 
   try {
@@ -41,14 +41,13 @@ export const isModerator = async (_req: Request, res: Response, _next: NextFunct
     const user = (await collections.users.findOne(query));
     const isModerator = user.roles.find((el: Role) => el.name === "moderator");
     
-    if (isModerator) {
-      res.status(200).send({role: "moderator"});
-    } else {
+    if (!isModerator) {
       res.status(401).send('Unauthorized');
     }
   } catch (error) {
       res.status(404).send(`Unable to find matching document with id: ${res.locals.jwtPayload.id}`);
   }
+  next();
 }
 
 export const findRole = async (_req: Request, res: Response, next: NextFunction) => {

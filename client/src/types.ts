@@ -21,3 +21,14 @@ export type authSliceTypes = {
   isLoggedIn: boolean,
   user: User | null
 }
+
+export type cardTypes = {
+  title: string,
+  description: string,
+  category?: string
+}
+
+export type cardSliceTypes = {
+  isCreated: boolean,
+  cards: cardTypes[],
+}

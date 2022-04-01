@@ -15,6 +15,7 @@ export const readBugs = async (_req: Request, res: Response) => {
 
 export const readBug = async (req: Request, res: Response) => {
   const id = req?.params?.id;
+  console.log("bug id and data ", id)
 
   try {
     const query = { _id: new ObjectId(id) };
@@ -35,8 +36,8 @@ export const createBug = async (req: Request, res: Response) => {
       const result = await collections.bugs.insertOne(obj);
 
       result
-          ? res.status(201).send(`Successfully created a new bug with id ${result.insertedId}`)
-          : res.status(500).send("Failed to create a new bug.");
+          ? res.status(201).send({message: `Successfully created a new bug with id ${result.insertedId}`})
+          : res.status(500).send({message: "Failed to create a new bug"});
   } catch (error) {
       console.error(error);
       res.status(400).send(error.message);

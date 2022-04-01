@@ -1,8 +1,10 @@
+import { Link } from 'react-router-dom';
+
 const ModeratorDashboard = () => {
   return (
     <>
       <p>---CARDS---</p>
-      <p>create a bug's card</p>
+      <p><Link to="/createcard">create a bug's card</Link></p>
       <p>delete a bug's card</p>
 
       <p>---TEAMS---</p>

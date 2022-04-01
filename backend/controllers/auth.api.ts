@@ -20,7 +20,7 @@ export const registerUser = async (req: Request, res: Response) => {
         name: req.body.name,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 8),
-        roles: [new Role(ROLES[0]), new Role(ROLES[2])],
+        roles: [new Role(ROLES[0]), new Role(ROLES[1]), new Role(ROLES[2])],
       } as User;
     } else {
       user = {

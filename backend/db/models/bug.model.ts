@@ -6,7 +6,7 @@ export default class Bug {
   constructor(
     public name: string, 
     public description: string, 
-    public category: string,
+    public category?: string,
     public createdBy?: User,
     public workedOnBy?: User[],
     public status?: Status,
