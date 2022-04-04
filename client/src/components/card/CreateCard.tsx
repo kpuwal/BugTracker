@@ -2,12 +2,17 @@ import React, { useState } from "react";
 import { RootState, useAppDispatch } from '../../redux/store';
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { cardTypes } from '../../types';
 
 import { createCard } from "../../redux/slices/card.slice";
 
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
+
+type InitialValuesTypes = {
+  title: string;
+  description: string;
+  category?: string;
+}
 
 const CreateCard = () => {
   const [loading, setLoading] = useState(false);
@@ -33,7 +38,7 @@ const CreateCard = () => {
       .string()
   });
 
-  const handleCreateCard = (formValue: cardTypes) => {
+  const handleCreateCard = (formValue: InitialValuesTypes) => {
     let createdBy;
     currentUser !== null ? createdBy = currentUser.name : createdBy = "";
     const { title, description, category } = formValue;

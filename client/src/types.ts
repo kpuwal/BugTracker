@@ -22,14 +22,14 @@ export type authSliceTypes = {
   user: User | null,
 }
 
-export type cardTypes = {
+export type CardTypes = {
   title: string,
   description: string,
-  createdBy?: string | null,
+  createdBy: string,
   category?: string,
 }
 
 export type cardSliceTypes = {
   isCreated: boolean,
-  cards: cardTypes[],
+  cards: CardTypes[],
 }

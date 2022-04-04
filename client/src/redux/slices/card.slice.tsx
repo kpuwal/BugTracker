@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { setMessage } from './message.slice';
 import CardService from '../../services/card.service';
-import { cardTypes, cardSliceTypes } from '../../types';
+import { CardTypes, cardSliceTypes } from '../../types';
 
 export const createCard = createAsyncThunk(
   "moderator/bug",
-  async ({title, description, createdBy, category}: cardTypes, thunkAPI) => {
+  async ({title, description, createdBy, category}: CardTypes, thunkAPI) => {
 
     try {
       const response = await CardService.addCard({title, description, createdBy, category});
@@ -26,8 +26,8 @@ export const showCards = createAsyncThunk(
     try {
       const response = await CardService.readCards();
       console.log(response.data.bugs)
-      thunkAPI.dispatch(setMessage((response.data.message).toString()));
-      return response.data;
+      // thunkAPI.dispatch(setMessage((response.data.message).toString()));
+      return response.data.bugs;
     } catch (error: any) {
       const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
 
@@ -54,7 +54,12 @@ const cardSlice = createSlice({
       state.isCreated = false;
     })
     builder.addCase(showCards.fulfilled, (state, action) => {
-      state.cards = state.cards.concat(action.payload)
+      console.log(action.payload, " from action payload")
+      state.cards = action.payload;
+    })
+    builder.addCase(showCards.rejected, (state, action) => {
+      console.log("why rejecting?")
+      state.isCreated = false;
     })
   }
 })
