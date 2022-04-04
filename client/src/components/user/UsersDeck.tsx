@@ -28,6 +28,7 @@ const UsersDeck = () => {
           key={idx}
           name={user.name}
           email={user.email}
+          roles={user.roles}
         />
       })}
       </div>

@@ -6,7 +6,7 @@ export const checkDuplicateUsername = async (req: Request, res: Response, next: 
     const query = { name: req.body.name};
     const name = (await collections.users.findOne(query));
     if (name) {
-      return res.status(409).send("Name is already in use!!");
+      return res.status(409).send({message: "Name is already in use!!"});
     }
   } catch (error) {
     res.status(500).send(error.message);
@@ -19,7 +19,7 @@ export const checkDuplicateEmail = async (req: Request, res: Response, next: Nex
     const query = { email: req.body.email};
     const email = (await collections.users.findOne(query));
     if (email) {
-      return res.status(409).send("Email is already in use!!");
+      return res.status(409).send({message: "Email is already in use!!"});
     }
   } catch (error) {
     res.status(500).send(error.message);

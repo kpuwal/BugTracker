@@ -8,7 +8,7 @@ export const showUsers = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await UserService.showUsers();
-      // thunkAPI.dispatch(setMessage((response.data.message).toString()));
+      thunkAPI.dispatch(setMessage((response.data.message)));
       return response.data.users;
     } catch (error: any) {
       const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();

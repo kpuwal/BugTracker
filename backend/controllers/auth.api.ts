@@ -34,7 +34,7 @@ export const registerUser = async (req: Request, res: Response) => {
     const result = await collections.users.insertOne(user);
     return result
       ? res.status(200).send({message: `Successfully created a new user with id ${result.insertedId}`})
-      : res.status(500).send("Failed to create a new user.");
+      : res.status(500).send({message: "Failed to create a new user."});
   } catch (error) {
     res.status(400).send(error.message);
   }

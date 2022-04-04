@@ -34,9 +34,14 @@ export type cardSliceTypes = {
   cards: CardTypes[],
 }
 
+export type RolesTypes = {
+  name: string
+}
+
 export type UserCardType = {
   name: string,
-  email: string
+  email: string,
+  roles: RolesTypes[]
 }
 
 export type UserInitialTypes = {

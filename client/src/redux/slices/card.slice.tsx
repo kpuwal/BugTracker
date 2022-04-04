@@ -25,7 +25,7 @@ export const showCards = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await CardService.readCards();
-      // thunkAPI.dispatch(setMessage((response.data.message).toString()));
+      thunkAPI.dispatch(setMessage((response.data.message)));
       return response.data.bugs;
     } catch (error: any) {
       const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
