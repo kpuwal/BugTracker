@@ -13,11 +13,13 @@ const CreateCard = () => {
   const [loading, setLoading] = useState(false);
   const [successful, setSuccessful] = useState(false);
   const { message } = useSelector((state: RootState) => state.message);
+  const { user: currentUser } = useSelector((state: RootState) => state.auth);
   const dispatch = useAppDispatch();
 
   const initialValues = {
     title: "",
-    description: ""
+    description: "",
+    category: ""
   };
 
   const validationSchema = Yup.object({
@@ -32,10 +34,12 @@ const CreateCard = () => {
   });
 
   const handleCreateCard = (formValue: cardTypes) => {
+    let createdBy;
+    currentUser !== null ? createdBy = currentUser.name : createdBy = "";
     const { title, description, category } = formValue;
     setSuccessful(false);
     setLoading(true);
-    dispatch(createCard({ title, description, category}))
+    dispatch(createCard({ title, description, category, createdBy}))
       .unwrap()
       .then(() => {
         setSuccessful(true);

@@ -31,8 +31,8 @@ export const readBug = async (req: Request, res: Response) => {
 
 export const createBug = async (req: Request, res: Response) => {
   try {
-      const {name, description, category} = req.body as Bug;
-      const obj = new Bug(name, description, category);
+      const {title, description, createdBy, category} = req.body as Bug;
+      const obj = new Bug(title, description, createdBy, category);
       const result = await collections.bugs.insertOne(obj);
 
       result

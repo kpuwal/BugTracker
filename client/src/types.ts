@@ -19,13 +19,14 @@ export type User = {
 
 export type authSliceTypes = {
   isLoggedIn: boolean,
-  user: User | null
+  user: User | null,
 }
 
 export type cardTypes = {
   title: string,
   description: string,
-  category?: string
+  createdBy?: string | null,
+  category?: string,
 }
 
 export type cardSliceTypes = {

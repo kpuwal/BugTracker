@@ -77,7 +77,7 @@ export const logInUser = async (req: Request, res: Response) => {
 
     res.status(200).send({
       id: user._id,
-      username: user.name,
+      name: user.name,
       email: user.email,
       role: highestRole,
       accessToken: token

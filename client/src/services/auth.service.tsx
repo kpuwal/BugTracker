@@ -4,7 +4,7 @@ import { authType } from '../types';
 const API_URL = process.env.REACT_APP_URL;
 
 const register = ({name, email, password}: authType) => {
-  return axios.post(API_URL + "register", {
+  return axios.post(API_URL + "auth/register", {
     name,
     email,
     password,
@@ -13,7 +13,7 @@ const register = ({name, email, password}: authType) => {
 
 const login = ({email, password}: authType) => {
   return axios
-    .post(API_URL + "login", {
+    .post(API_URL + "auth/login", {
       email,
       password,
     })

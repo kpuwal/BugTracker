@@ -5,9 +5,27 @@ import { cardTypes, cardSliceTypes } from '../../types';
 
 export const createCard = createAsyncThunk(
   "moderator/bug",
-  async ({title, description, category}: cardTypes, thunkAPI) => {
+  async ({title, description, createdBy, category}: cardTypes, thunkAPI) => {
+
     try {
-      const response = await CardService.addCard({title, description, category});
+      const response = await CardService.addCard({title, description, createdBy, category});
+      thunkAPI.dispatch(setMessage((response.data.message).toString()));
+      return response.data;
+    } catch (error: any) {
+      const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+); 
+
+export const showCards = createAsyncThunk(
+  "user/bugs",
+  async (_, thunkAPI) => {
+    try {
+      const response = await CardService.readCards();
+      console.log(response.data)
       thunkAPI.dispatch(setMessage((response.data.message).toString()));
       return response.data;
     } catch (error: any) {
@@ -31,6 +49,12 @@ const cardSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(createCard.fulfilled, (state, _action) => {
       state.isCreated = true;
+    })
+    builder.addCase(createCard.rejected, (state, _action) => {
+      state.isCreated = false;
+    })
+    builder.addCase(showCards.fulfilled, (state, action) => {
+      state.cards = state.cards.concat(action.payload)
     })
   }
 })

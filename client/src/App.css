@@ -36,3 +36,18 @@
     transform: rotate(360deg);
   }
 }
+
+.container {
+  flex: 1;
+  flex-direction: row;
+  padding: 0.5em;
+}
+
+.left {
+  float: left;
+  background-color: #f8f8f8;
+}
+
+.right {
+  /* background-color: pink; */
+}
