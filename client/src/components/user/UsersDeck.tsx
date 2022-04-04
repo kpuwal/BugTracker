@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from '../../redux/store';
-import {showUsers} from '../../redux/slices/moderator.slice';
+import {showUsers} from '../../redux/slices/user.slice';
 import UserCard from './UserCard';
 
 const UsersDeck = () => {
   const [loading, setLoading] = useState(false);
-  const { users } = useSelector((state: RootState) => state.moderator);
+  const { users } = useSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const UsersDeck = () => {
 
   return (
     <>
-      <p>Deck of Bug Cards</p>
+      <p>Deck of User Cards</p>
       <div style={{flex: 1}}>
         {loading && (<span>loading...</span>)}
         {users.map((user, idx) => {

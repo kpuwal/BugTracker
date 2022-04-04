@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './slices/auth.slice';
 import messageReducer from './slices/message.slice';
 import cardReducer from './slices/card.slice';
-import moderatorReducer from './slices/moderator.slice';
+import userReducer from './slices/user.slice';
 import { useDispatch } from 'react-redux';
 
 const store = configureStore({
@@ -10,7 +10,7 @@ const store = configureStore({
     auth: authReducer,
     message: messageReducer,
     card: cardReducer,
-    moderator: moderatorReducer,
+    user: userReducer,
   },
 })
 

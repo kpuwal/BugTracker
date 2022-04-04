@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { setMessage } from './message.slice';
-import ModeratorService from '../../services/moderator.service';
-import { ModeratorInitialTypes } from '../../types';
+import UserService from '../../services/user.service';
+import { UserInitialTypes } from '../../types';
 
 export const showUsers = createAsyncThunk(
   "user/bugs",
   async (_, thunkAPI) => {
     try {
-      const response = await ModeratorService.showUsers();
+      const response = await UserService.showUsers();
       // thunkAPI.dispatch(setMessage((response.data.message).toString()));
       return response.data.users;
     } catch (error: any) {
@@ -19,12 +19,12 @@ export const showUsers = createAsyncThunk(
   }
 );
 
-const initialState: ModeratorInitialTypes = {
+const initialState: UserInitialTypes = {
   users: []
 }
 
-const moderatorSlice = createSlice({
-  name: 'auth',
+const userSlice = createSlice({
+  name: 'user',
   initialState,
   reducers: {
     clearUsers: (state, action) => {
@@ -38,7 +38,7 @@ const moderatorSlice = createSlice({
   }
 })
 
-export const { clearUsers } = moderatorSlice.actions;
+export const { clearUsers } = userSlice.actions;
 
-const { reducer } = moderatorSlice;
+const { reducer } = userSlice;
 export default reducer;

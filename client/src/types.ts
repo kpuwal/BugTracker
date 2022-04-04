@@ -39,6 +39,6 @@ export type UserCardType = {
   email: string
 }
 
-export type ModeratorInitialTypes = {
+export type UserInitialTypes = {
   users: UserCardType[]
 }

@@ -22,9 +22,16 @@ const getUserDashboard = () => {
 //   const requestConfig: AxiosRequestConfig = { headers: authHeader() };
 //   return axios.get(API_URL + 'admin/dashboard', requestConfig);
 // };
+
+const showUsers = () => {
+  const requestConfig: AxiosRequestConfig = { headers: authHeader() };
+  return axios.get(API_URL + 'moderator/users', requestConfig);
+};
+
 const userService = {
   getDashboard,
   getUserDashboard,
+  showUsers,
   // getModeratorDashboard,
   // getAdminDashboard,
 };
