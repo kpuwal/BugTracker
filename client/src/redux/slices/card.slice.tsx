@@ -45,7 +45,12 @@ const initialState: cardSliceTypes = {
 const cardSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    clearCards: (state, _action) => {
+      console.log("clearing cards")
+      state.cards = [];
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(createCard.fulfilled, (state, _action) => {
       state.isCreated = true;
@@ -63,6 +68,8 @@ const cardSlice = createSlice({
     })
   }
 })
+
+export const { clearCards } = cardSlice.actions;
 
 const { reducer } = cardSlice;
 export default reducer;

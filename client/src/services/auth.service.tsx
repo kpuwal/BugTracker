@@ -26,6 +26,7 @@ const login = ({email, password}: authType) => {
 }
 
 const logout = () => {
+  console.log("about to log out!")
   localStorage.removeItem("user");
 }
 

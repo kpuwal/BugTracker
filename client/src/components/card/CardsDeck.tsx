@@ -22,7 +22,7 @@ const Cards = () => {
   return (
     <>
       <p>Deck of Bug Cards</p>
-      <div>
+      <div style={{flex: 1}}>
         {loading && (<span>loading...</span>)}
         {cards.map((card, idx) => {
         return <Card

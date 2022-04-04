@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { setMessage } from './message.slice';
+import { clearCards } from './card.slice';
 import AuthService from '../../services/auth.service';
 import { authType, User, authSliceTypes } from '../../types';
 
@@ -41,8 +42,9 @@ export const login = createAsyncThunk(
 
 export const logout = createAsyncThunk(
   "auth/logout",
-  async () => {
+  async (_, thunkAPI) => {
     AuthService.logout();
+    thunkAPI.dispatch(clearCards);
   }
 );
 

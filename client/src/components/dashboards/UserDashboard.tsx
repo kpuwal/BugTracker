@@ -5,7 +5,7 @@ import AdminDashboard from './AdminDashboard';
 import ModeratorDashboard from './ModeratorDashboard';
 import '../../App.css';
 
-import Cards from '../card/Cards';
+import CardsDeck from '../card/CardsDeck';
 
 const UserDashboard = () => {
   const { user: currentUser } = useSelector((state: RootState) => state.auth);
@@ -46,7 +46,7 @@ const UserDashboard = () => {
         }
         </div>
         <div className="right">
-          <Cards />
+          <CardsDeck />
         </div>
       </div>
     </div>
