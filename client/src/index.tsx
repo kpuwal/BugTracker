@@ -8,6 +8,7 @@ import Register from './components/Register';
 import Profile from './components/Profile';
 import UserDashboard from './components/dashboards/UserDashboard';
 import CreateCard from './components/card/CreateCard';
+import UsersDeck from './components/user/UsersDeck';
 
 import store from './redux/store';
 import reportWebVitals from './reportWebVitals';
@@ -21,6 +22,7 @@ ReactDOM.render(
         <Route path="/profile" element={<Profile />} />
         <Route path="/dashboard" element={<UserDashboard />}></Route>
         <Route path="/createcard" element={<CreateCard />}></Route>
+        <Route path="/users" element={<UsersDeck />}></Route>
       </Routes>
     </BrowserRouter>
   </Provider>,

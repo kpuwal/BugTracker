@@ -44,7 +44,7 @@ export const logout = createAsyncThunk(
   "auth/logout",
   async (_, thunkAPI) => {
     AuthService.logout();
-    thunkAPI.dispatch(clearCards);
+    thunkAPI.dispatch(clearCards([]));
   }
 );
 

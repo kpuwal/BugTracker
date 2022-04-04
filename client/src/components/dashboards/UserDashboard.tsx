@@ -14,6 +14,7 @@ const UserDashboard = () => {
     <div>
       <header>
         <h3>dashboard</h3>
+        <h5>Hello{currentUser !== null ? ` ${currentUser.name}!` : "!"}</h5>
       </header>
       <div className="container">
         <div className="left">

@@ -2,11 +2,14 @@ import newRouter from 'express-promise-router';
 import { isModerator } from '../middlewares/verifyRoles';
 import { verifyToken } from '../middlewares/authJWT';
 import { createBug, deleteBug } from '../controllers/bug.api';
+import { readUsers } from '../controllers/user.api';
 import { moderatorDashboard } from '../controllers/moderator.api';
 const router = newRouter();
 
 // authentication
-router.get('/moderator/dashboard', [verifyToken, isModerator], moderatorDashboard);
+router.get('/dashboard', [verifyToken, isModerator], moderatorDashboard);
+
+router.get('/users', [verifyToken, isModerator], readUsers);
 
 // Moderator routes (one team per moderator)
 router.get('/team/:id', [verifyToken, isModerator]); // get a team 

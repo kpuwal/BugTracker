@@ -25,7 +25,6 @@ export const showCards = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await CardService.readCards();
-      console.log(response.data.bugs)
       // thunkAPI.dispatch(setMessage((response.data.message).toString()));
       return response.data.bugs;
     } catch (error: any) {
@@ -46,9 +45,8 @@ const cardSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    clearCards: (state, _action) => {
-      console.log("clearing cards")
-      state.cards = [];
+    clearCards: (state, action) => {
+      state.cards = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -59,11 +57,9 @@ const cardSlice = createSlice({
       state.isCreated = false;
     })
     builder.addCase(showCards.fulfilled, (state, action) => {
-      console.log(action.payload, " from action payload")
       state.cards = action.payload;
     })
-    builder.addCase(showCards.rejected, (state, action) => {
-      console.log("why rejecting?")
+    builder.addCase(showCards.rejected, (state, _action) => {
       state.isCreated = false;
     })
   }
