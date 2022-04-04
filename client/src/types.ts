@@ -33,3 +33,12 @@ export type cardSliceTypes = {
   isCreated: boolean,
   cards: CardTypes[],
 }
+
+export type UserCardType = {
+  name: string,
+  email: string
+}
+
+export type ModeratorInitialTypes = {
+  users: UserCardType[]
+}
