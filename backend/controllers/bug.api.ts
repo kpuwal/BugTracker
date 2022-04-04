@@ -7,7 +7,7 @@ export const readBugs = async (_req: Request, res: Response) => {
   try {
     const bugs = await collections.bugs.find({}).toArray();
 
-    res.status(200).send(bugs);
+    res.status(200).send({ bugs });
   } catch (error) {
       res.status(500).send(error.message);
   }
