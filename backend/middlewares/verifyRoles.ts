@@ -22,7 +22,8 @@ export const isAdmin = async (_req: Request, res: Response, next: NextFunction) 
   try {
     const query = { _id: new ObjectId(id) };
     const user = (await collections.users.findOne(query));
-    const isAdmin = user.roles.find((el: Role) => el.name === "admin");
+    // const isAdmin = user.roles.find((el: Role) => el.name === "admin");
+    const isAdmin = user.roles.admin;
   
     if (!isAdmin) {
       res.status(401).send({message: 'Unauthorized'});
@@ -39,7 +40,8 @@ export const isModerator = async (_req: Request, res: Response, next: NextFuncti
   try {
     const query = { _id: new ObjectId(id) };
     const user = (await collections.users.findOne(query));
-    const isModerator = user.roles.find((el: Role) => el.name === "moderator");
+    // const isModerator = user.roles.find((el: Role) => el.name === "moderator");
+    const isModerator = user.roles.moderator;
     
     if (!isModerator) {
       res.status(401).send({message: 'Unauthorized'});
@@ -56,8 +58,10 @@ export const findRole = async (_req: Request, res: Response, next: NextFunction)
   try {
     const query = { _id: new ObjectId(id) };
     const user = (await collections.users.findOne(query));
-    const isAdmin = user.roles.find((el: Role) => el.name === "admin");
-    const isModerator = user.roles.find((el: Role) => el.name === "moderator");
+    // const isAdmin = user.roles.find((el: Role) => el.name === "admin");
+    // const isModerator = user.roles.find((el: Role) => el.name === "moderator");
+    const isAdmin = user.roles.admin;
+    const isModerator = user.roles.moderator;
   
     if (isAdmin) {
       res.locals.role = "admin";

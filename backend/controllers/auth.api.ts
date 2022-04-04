@@ -8,7 +8,6 @@ import User from '../db/models/user.model';
 import Role from '../db/models/role.model';
 
 const secret = process.env.AUTH_SECRET;
-const ROLES = ["user", "moderator", "admin"];
 
 export const registerUser = async (req: Request, res: Response) => {
   const isFirstUser = res.locals.isFirstUser;
@@ -20,14 +19,22 @@ export const registerUser = async (req: Request, res: Response) => {
         name: req.body.name,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 8),
-        roles: [new Role(ROLES[0]), new Role(ROLES[1]), new Role(ROLES[2])],
+        roles: {
+          admin: true,
+          moderator: true,
+          user: true
+        },
       } as User;
     } else {
       user = {
         name: req.body.name,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 8),
-        roles: [new Role(ROLES[0])],
+        roles: {
+          admin: false,
+          moderator: false,
+          user: true
+        },
       } as User;
     }
 
@@ -60,8 +67,10 @@ export const logInUser = async (req: Request, res: Response) => {
       });
     }
 
-    const isAdmin = user.roles.find((el: Role) => el.name === "admin");
-    const isModerator = user.roles.find((el: Role) => el.name === "moderator");
+    // const isAdmin = user.roles.find((el: Role) => el.name === "admin");
+    // const isModerator = user.roles.find((el: Role) => el.name === "moderator");
+    const isAdmin = user.roles.admin;
+    const isModerator = user.roles.moderator;
   
     if (isAdmin) {
       highestRole = "admin";

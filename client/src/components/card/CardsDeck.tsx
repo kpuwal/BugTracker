@@ -6,12 +6,11 @@ import {showCards} from '../../redux/slices/card.slice';
 import Card from './Card';
 
 const Cards = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { cards } = useSelector((state: RootState) => state.card);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    setLoading(true);
     dispatch(showCards())
       .unwrap()
       .then(() => {
@@ -24,7 +23,7 @@ const Cards = () => {
       <p>Deck of Bug Cards</p>
       <div style={{flex: 1}}>
         {loading && (<span>loading...</span>)}
-        {cards.map((card, idx) => {
+        {!loading && cards.map((card, idx) => {
         return <Card
           key={idx}
           title={card.title}
