@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { collections } from "../db/services/mongo.connection";
 import { ObjectId } from "mongodb";
 import Bug from "../db/models/bug.model";
+import Status from '../db/models/status.model';
 
 export const readBugs = async (_req: Request, res: Response) => {
   try {
@@ -32,7 +33,8 @@ export const readBug = async (req: Request, res: Response) => {
 export const createBug = async (req: Request, res: Response) => {
   try {
       const {title, description, createdBy, category} = req.body as Bug;
-      const obj = new Bug(title, description, createdBy, category);
+      const status = {toDo: true, doing: false, done: false} as Status;
+      const obj = new Bug(title, description, createdBy, status, category);
       const result = await collections.bugs.insertOne(obj);
 
       result

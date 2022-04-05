@@ -6,10 +6,10 @@ export default class Bug {
   constructor(
     public title: string, 
     public description: string,
-    public createdBy?: string,
+    public createdBy: string,
+    public status: Status,
     public category?: string,
     public workedOnBy?: User[],
-    public status?: Status,
     public date?: Date,
     public _id?: ObjectId) {
       this.date = new Date();

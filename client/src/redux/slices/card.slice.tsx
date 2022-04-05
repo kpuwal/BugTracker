@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { setMessage } from './message.slice';
 import CardService from '../../services/card.service';
-import { CardTypes, cardSliceTypes } from '../../types';
+import { CreateCardTypes, cardSliceTypes } from '../../types';
 
 export const createCard = createAsyncThunk(
   "moderator/bug",
-  async ({title, description, createdBy, category}: CardTypes, thunkAPI) => {
+  async ({title, description, createdBy, category}: CreateCardTypes, thunkAPI) => {
 
     try {
       const response = await CardService.addCard({title, description, createdBy, category});

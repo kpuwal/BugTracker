@@ -29,11 +29,21 @@ export type authSliceTypes = {
   user: TokenUser | null,
 }
 
-export type CardTypes = {
+export type StatusTypes = {
+  toDo: boolean,
+  doing: boolean,
+  done: boolean,
+}
+
+export type CreateCardTypes = {
   title: string,
   description: string,
   createdBy: string,
   category?: string,
+}
+
+export interface CardTypes extends CreateCardTypes {
+  status: StatusTypes,
 }
 
 export type cardSliceTypes = {

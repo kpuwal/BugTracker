@@ -1,10 +1,10 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { CardTypes } from '../types';
+import { CreateCardTypes } from '../types';
 import authHeader from './auth-header';
 
 const API_URL = process.env.REACT_APP_URL;
 
-const addCard = ({title, description, createdBy, category}: CardTypes) => {
+const addCard = ({title, description, createdBy, category}: CreateCardTypes) => {
   const requestConfig: AxiosRequestConfig = { headers: authHeader() };
   return axios.post(API_URL + "moderator/bug", {
     title,

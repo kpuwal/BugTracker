@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { CardTypes } from '../../types';
 
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from '../../redux/store';
 import {showCards} from '../../redux/slices/card.slice';
-import Card from './Card';
+import CardTray from './CardTray';
 
 const Cards = () => {
   const [loading, setLoading] = useState(true);
@@ -23,12 +24,10 @@ const Cards = () => {
       <p>Deck of Bug Cards</p>
       <div style={{flex: 1}}>
         {loading && (<span>loading...</span>)}
-        {!loading && cards.map((card, idx) => {
-        return <Card
+        {!loading && cards.map((card: CardTypes, idx) => {
+        return <CardTray
           key={idx}
-          title={card.title}
-          description={card.description}
-          createdBy={card.createdBy}
+          {...{card}}
         />
       })}
       </div>
