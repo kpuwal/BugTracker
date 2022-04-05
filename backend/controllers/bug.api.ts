@@ -6,9 +6,12 @@ import Status from '../db/models/status.model';
 
 export const readBugs = async (_req: Request, res: Response) => {
   try {
-    const bugs = await collections.bugs.find({}).toArray();
-
-    res.status(200).send({ bugs });
+    // const bugs = await collections.bugs.find({}).toArray();
+    const toDoBugs = await collections.bugs.find({status: { toDo: true, doing: false, done: false }}).toArray();
+    const doingBugs = await collections.bugs.find({status: { toDo: false, doing: true, done: false }}).toArray();
+    const doneBugs = await collections.bugs.find({status: { toDo: false, doing: false, done: true }}).toArray();
+   
+    res.status(200).send({ toDo: toDoBugs, doing: doingBugs, done: doneBugs });
   } catch (error) {
       res.status(500).send({message: error.message});
   }

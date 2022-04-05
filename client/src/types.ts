@@ -46,9 +46,13 @@ export interface CardTypes extends CreateCardTypes {
   status: StatusTypes,
 }
 
-export type cardSliceTypes = {
+export type CardSliceTypes = {
   isCreated: boolean,
-  cards: CardTypes[],
+  cards: {
+    toDo: CardTypes[],
+    doing: CardTypes[],
+    done: CardTypes[],
+  }
 }
 
 export type RoleTypes = {

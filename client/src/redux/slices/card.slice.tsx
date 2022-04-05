@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { setMessage } from './message.slice';
 import CardService from '../../services/card.service';
-import { CreateCardTypes, cardSliceTypes } from '../../types';
+import { CreateCardTypes, CardSliceTypes } from '../../types';
 
 export const createCard = createAsyncThunk(
   "moderator/bug",
@@ -26,7 +26,7 @@ export const showCards = createAsyncThunk(
     try {
       const response = await CardService.readCards();
       thunkAPI.dispatch(setMessage((response.data.message)));
-      return response.data.bugs;
+      return response.data;
     } catch (error: any) {
       const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
 
@@ -36,9 +36,13 @@ export const showCards = createAsyncThunk(
   }
 );
 
-const initialState: cardSliceTypes = {
+const initialState: CardSliceTypes = {
   isCreated: false,
-  cards: []
+  cards: {
+    toDo: [],
+    doing: [],
+    done: [],
+  }
 }
 
 const cardSlice = createSlice({
@@ -57,7 +61,9 @@ const cardSlice = createSlice({
       state.isCreated = false;
     })
     builder.addCase(showCards.fulfilled, (state, action) => {
-      state.cards = action.payload;
+      state.cards.toDo = action.payload.toDo;
+      state.cards.doing = action.payload.doing;
+      state.cards.done = action.payload.done;
     })
     builder.addCase(showCards.rejected, (state, _action) => {
       state.isCreated = false;
