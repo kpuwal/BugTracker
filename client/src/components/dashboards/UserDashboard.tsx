@@ -22,10 +22,10 @@ const UserDashboard = () => {
           currentUser === null && <p>to see the dashboard you need to <Link to="/">login</Link></p>
         }
         {
-          currentUser !== null && currentUser.roles.admin && <AdminDashboard />
+         ( currentUser !== null && currentUser.roles.admin) && <AdminDashboard />
         }
         {
-          currentUser !== null && (currentUser.roles.moderator || currentUser.roles.admin) && <ModeratorDashboard />
+          (currentUser !== null && (currentUser.roles.moderator || currentUser.roles.admin)) && <ModeratorDashboard />
         }
         {
           currentUser !== null && 

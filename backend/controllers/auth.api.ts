@@ -5,7 +5,6 @@ import { Request, Response } from 'express';
 import { collections } from "../db/services/mongo.connection";
 
 import User from '../db/models/user.model';
-import Role from '../db/models/role.model';
 
 const secret = process.env.AUTH_SECRET;
 

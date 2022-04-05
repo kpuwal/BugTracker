@@ -1,7 +1,7 @@
 import newRouter from 'express-promise-router';
 import { registerUser, logInUser } from '../controllers/auth.api';
 import { checkDuplicateUsername, checkDuplicateEmail } from '../middlewares/verifyRegistration';
-import { isFirstUser, findRole } from '../middlewares/verifyRoles';
+import { isFirstUser } from '../middlewares/verifyRoles';
 
 const router = newRouter();
 

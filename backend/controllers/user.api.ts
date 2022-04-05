@@ -9,7 +9,7 @@ export const readUsers = async (_req: Request, res: Response) => {
 
     res.status(200).send({ users });
   } catch (error) {
-      res.status(500).send(error.message);
+      res.status(500).send({message: error.message});
   }
 }
 

@@ -24,15 +24,14 @@ const UsersDeck = () => {
       <div>
         {loading && (<span>loading...</span>)}
         {!loading && users.slice(1).map((user: User, idx) => {
-          console.log(user)
-        return <UserCard
-          key={idx}
-          _id={user._id}
-          name={user.name}
-          email={user.email}
-          roles={user.roles}
-        />
-      })}
+          return <UserCard
+            key={idx}
+            _id={user._id}
+            name={user.name}
+            email={user.email}
+            roles={user.roles}
+          />
+        })}
       </div>
     </>
   )
