@@ -53,5 +53,6 @@ export type updateTypes = {
 }
 
 export type UserInitialTypes = {
-  users: User[]
+  users: User[],
+  isUpdated: boolean,
 }

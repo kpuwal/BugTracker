@@ -36,7 +36,8 @@ export const updateUser = createAsyncThunk(
 )
 
 const initialState: UserInitialTypes = {
-  users: []
+  users: [],
+  isUpdated: false,
 }
 
 const userSlice = createSlice({
@@ -50,6 +51,12 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(showUsers.fulfilled, (state, action) => {
       state.users = action.payload;
+    })
+    builder.addCase(updateUser.fulfilled, (state, _action) => {
+      state.isUpdated = true;
+    })
+    builder.addCase(updateUser.rejected, (state, _action) => {
+      state.isUpdated = false;
     })
   }
 })
