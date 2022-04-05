@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { setMessage } from './message.slice';
 import UserService from '../../services/user.service';
-import { UserInitialTypes } from '../../types';
+import { UserInitialTypes, updateTypes } from '../../types';
 
 export const showUsers = createAsyncThunk(
-  "user/bugs",
+  "moderator/users",
   async (_, thunkAPI) => {
     try {
       const response = await UserService.showUsers();
@@ -18,6 +18,22 @@ export const showUsers = createAsyncThunk(
     }
   }
 );
+
+export const updateUser = createAsyncThunk(
+  'admin/user/:id',
+  async({_id, roles }: updateTypes, thunkAPI) => {
+    try {
+      const response = await UserService.updateUser({_id, roles});
+      thunkAPI.dispatch(setMessage((response.data.message).toString()));
+      return response.data;
+    } catch (error: any) {
+      const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+)
 
 const initialState: UserInitialTypes = {
   users: []

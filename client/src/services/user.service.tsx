@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
-
+import { updateTypes } from '../types';
 import authHeader from './auth-header';
 
 const API_URL = process.env.REACT_APP_URL;
@@ -28,10 +28,16 @@ const showUsers = () => {
   return axios.get(API_URL + 'moderator/users', requestConfig);
 };
 
+const updateUser = ({_id, roles}: updateTypes) => {
+  const requestConfig: AxiosRequestConfig = { headers: authHeader() };
+  return axios.put(API_URL + `admin/user`, {_id, roles}, requestConfig);
+};
+
 const userService = {
   getDashboard,
   getUserDashboard,
   showUsers,
+  updateUser,
   // getModeratorDashboard,
   // getAdminDashboard,
 };

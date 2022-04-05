@@ -29,20 +29,16 @@ export const readUser = async (req: Request, res: Response) => {
 }
 
 export const updateUser = async (req: Request, res: Response) => {
-  const id = req?.params?.id;
-
+  const id = req?.body?._id;
   try {
-      const updatedUser: User = req.body as User;
+      const update = { $set: {roles: req.body.roles} };
       const query = { _id: new ObjectId(id) };
-    
-      const result = await collections.bugs.updateOne(query, { $set: updatedUser });
-
+      const result = await collections.users.updateOne(query, update);
       result
-          ? res.status(200).send(`Successfully updated user with id ${id}`)
-          : res.status(304).send(`User with id: ${id} not updated`);
+          ? res.status(200).send({message: `Successfully updated user with id ${id}`})
+          : res.status(304).send({message: `User with id: ${id} not updated`});
   } catch (error) {
-      console.error(error.message);
-      res.status(400).send(error.message);
+      res.status(400).send({message: error.message});
   }
 }
 

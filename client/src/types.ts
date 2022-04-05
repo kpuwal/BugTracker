@@ -47,6 +47,11 @@ export type RoleTypes = {
   user: boolean,
 }
 
+export type updateTypes = {
+  _id: string,
+  roles: RoleTypes,
+}
+
 export type UserInitialTypes = {
   users: User[]
 }

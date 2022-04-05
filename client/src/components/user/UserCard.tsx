@@ -1,16 +1,22 @@
 import React, {useState} from 'react';
+import { useSelector } from "react-redux";
+
 import { User } from '../../types';
+import { RootState, useAppDispatch } from '../../redux/store';
+import {updateUser } from '../../redux/slices/user.slice';
 
 const UserCard = ({_id, name, email, roles}: User) => {
   const [isChecked, setIsChecked] = useState(roles.moderator);
+  const { message } = useSelector((state: RootState) => state.message);
+  const dispatch = useAppDispatch();
   
   const handleChange = () => {
     setIsChecked(!isChecked);
   }
 
   const handleSave = () => {
-    console.log("isChecked ", isChecked)
-    console.log("user id ", _id)
+    const updatedRoles = {...roles, moderator: isChecked};
+    dispatch(updateUser({_id, roles: updatedRoles}));
   }
 
   return (
@@ -26,6 +32,8 @@ const UserCard = ({_id, name, email, roles}: User) => {
         />
       </p>
       <button onClick={handleSave}>save</button>
+      {message && (<div>{message}</div>)}
+
     </div>
   )
 }
