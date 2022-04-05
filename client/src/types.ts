@@ -10,16 +10,23 @@ export type Message = {
 }
 
 export type User = {
-  id: number,
+  _id: string,
   name: string,
   email: string,
-  role: string,
+  roles: RoleTypes,
+}
+
+export interface TokenUser extends User {
   accessToken: string,
 }
 
+// export interface DbUser extends User {
+//   roles: RoleTypes,
+// }
+
 export type authSliceTypes = {
   isLoggedIn: boolean,
-  user: User | null,
+  user: TokenUser | null,
 }
 
 export type CardTypes = {
@@ -40,12 +47,6 @@ export type RoleTypes = {
   user: boolean,
 }
 
-export type UserCardType = {
-  name: string,
-  email: string,
-  roles: RoleTypes
-}
-
 export type UserInitialTypes = {
-  users: UserCardType[]
+  users: User[]
 }

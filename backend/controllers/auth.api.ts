@@ -49,7 +49,6 @@ export const registerUser = async (req: Request, res: Response) => {
 
 export const logInUser = async (req: Request, res: Response) => {
   const email: string = req.body.email;
-  let highestRole;
 
   try {
     const user = (await collections.users.findOne({email}));
@@ -67,28 +66,15 @@ export const logInUser = async (req: Request, res: Response) => {
       });
     }
 
-    // const isAdmin = user.roles.find((el: Role) => el.name === "admin");
-    // const isModerator = user.roles.find((el: Role) => el.name === "moderator");
-    const isAdmin = user.roles.admin;
-    const isModerator = user.roles.moderator;
-  
-    if (isAdmin) {
-      highestRole = "admin";
-    } else if (isModerator) {
-      highestRole = "moderator";
-    } else {
-      highestRole = "user";
-    }
-
-    const token = jwt.sign({ id: user._id, name: user.name }, secret, {
+    const token = jwt.sign({ _id: user._id, name: user.name }, secret, {
       expiresIn: 9000
     });
 
     res.status(200).send({
-      id: user._id,
+      _id: user._id,
       name: user.name,
       email: user.email,
-      role: highestRole,
+      roles: user.roles,
       accessToken: token
     });
   } catch (error) {

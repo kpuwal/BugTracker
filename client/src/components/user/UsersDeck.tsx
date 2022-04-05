@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from '../../redux/store';
 import {showUsers} from '../../redux/slices/user.slice';
 import UserCard from './UserCard';
+import { User } from '../../types';
 
 const UsersDeck = () => {
   const [loading, setLoading] = useState(true);
@@ -10,7 +11,6 @@ const UsersDeck = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    // setLoading(true);
     dispatch(showUsers())
       .unwrap()
       .then(() => {
@@ -23,9 +23,11 @@ const UsersDeck = () => {
       <p>Deck of User Cards</p>
       <div>
         {loading && (<span>loading...</span>)}
-        {!loading && users.map((user, idx) => {
+        {!loading && users.slice(1).map((user: User, idx) => {
+          console.log(user)
         return <UserCard
           key={idx}
+          _id={user._id}
           name={user.name}
           email={user.email}
           roles={user.roles}

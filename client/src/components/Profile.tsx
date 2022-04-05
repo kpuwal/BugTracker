@@ -32,7 +32,7 @@ const Profile = () => {
           {currentUser.accessToken.substring(currentUser.accessToken.length - 20)}
         </p>
         <p>
-          <strong>Id:</strong> {currentUser.id}
+          <strong>Id:</strong> {currentUser._id}
         </p>
         <p>
           <strong>Email:</strong> {currentUser.email}

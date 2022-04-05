@@ -2,10 +2,10 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { setMessage } from './message.slice';
 import { clearCards } from './card.slice';
 import AuthService from '../../services/auth.service';
-import { authType, User, authSliceTypes } from '../../types';
+import { authType, TokenUser, authSliceTypes } from '../../types';
 
 // @ts-ignore
-const user = JSON.parse(localStorage.getItem("user") as User);
+const user = JSON.parse(localStorage.getItem("user") as TokenUser);
 
 export const register = createAsyncThunk(
   "auth/register",
