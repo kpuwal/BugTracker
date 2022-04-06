@@ -8,6 +8,7 @@ import { User } from '../../types';
 const UsersDeck = () => {
   const [loading, setLoading] = useState(true);
   const { users } = useSelector((state: RootState) => state.user);
+  const { message } = useSelector((state: RootState) => state.message);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -21,6 +22,7 @@ const UsersDeck = () => {
   return (
     <>
       <p>Deck of User Cards</p>
+      {message && (<div>{message}</div>)}
       <div>
         {loading && (<span>loading...</span>)}
         {!loading && users.slice(1).map((user: User, idx) => {

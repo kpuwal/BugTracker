@@ -1,13 +1,11 @@
 import React, {useState} from 'react';
-import { useSelector } from "react-redux";
 
 import { User } from '../../types';
-import { RootState, useAppDispatch } from '../../redux/store';
-import {updateUser } from '../../redux/slices/user.slice';
+import { useAppDispatch } from '../../redux/store';
+import {updateUser, deleteUser } from '../../redux/slices/user.slice';
 
 const UserCard = ({_id, name, email, roles}: User) => {
   const [isChecked, setIsChecked] = useState(roles.moderator);
-  const { message } = useSelector((state: RootState) => state.message);
   const dispatch = useAppDispatch();
   
   const handleChange = () => {
@@ -17,6 +15,10 @@ const UserCard = ({_id, name, email, roles}: User) => {
   const handleSave = () => {
     const updatedRoles = {...roles, moderator: isChecked};
     dispatch(updateUser({_id, roles: updatedRoles}));
+  }
+
+  const handleDelete = () => {
+    dispatch(deleteUser({_id}));
   }
 
   return (
@@ -32,8 +34,7 @@ const UserCard = ({_id, name, email, roles}: User) => {
         />
       </p>
       <button onClick={handleSave}>save</button>
-      {message && (<div>{message}</div>)}
-
+      <button onClick={handleDelete}>delete user</button>
     </div>
   )
 }

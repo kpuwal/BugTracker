@@ -66,6 +66,8 @@ export type updateTypes = {
   roles: RoleTypes,
 }
 
+export type deleteTypes = {_id: string};
+
 export type UserInitialTypes = {
   users: User[],
   isUpdated: boolean,

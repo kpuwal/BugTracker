@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { updateTypes } from '../types';
+import { updateTypes ,deleteTypes } from '../types';
 import authHeader from './auth-header';
 
 const API_URL = process.env.REACT_APP_URL;
@@ -25,11 +25,17 @@ const updateUser = ({_id, roles}: updateTypes) => {
   return axios.put(API_URL + `admin/user`, {_id, roles}, requestConfig);
 };
 
+const deleteUser = ({_id}: deleteTypes) => {
+  const requestConfig: AxiosRequestConfig = { headers: authHeader() };
+  return axios.delete(API_URL + `admin/user/${_id}`, requestConfig);
+};
+
 const userService = {
   getDashboard,
   getUserDashboard,
   showUsers,
   updateUser,
+  deleteUser,
 };
 
 export default userService;

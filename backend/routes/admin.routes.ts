@@ -2,13 +2,14 @@ import newRouter from 'express-promise-router';
 import { verifyToken } from '../middlewares/authJWT';
 import { isAdmin } from '../middlewares/verifyRoles';
 import { adminDashboard } from '../controllers/admin.api';
-import { updateUser } from '../controllers/user.api';
+import { updateUser, deleteUser } from '../controllers/user.api';
 
 const router = newRouter();
 
 // authentication
 router.get('/dashboard', [verifyToken, isAdmin], adminDashboard);
-router.put('/user', [verifyToken, isAdmin], updateUser)
+router.put('/user', [verifyToken, isAdmin], updateUser);
+router.delete('/user/:id', [verifyToken, isAdmin], deleteUser);
 // Admin routes 
 router.get('/teams', [verifyToken, isAdmin]);
 router.get('/role/:id', [verifyToken, isAdmin]); // get a role 
