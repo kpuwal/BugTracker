@@ -19,7 +19,6 @@ const Profile = () => {
   if (!currentUser) {
     return <Redirect to="/" />;
   } else {
-    console.log("current ", currentUser)
     return (
       <div>
         <header>

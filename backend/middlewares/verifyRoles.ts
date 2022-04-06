@@ -22,12 +22,13 @@ export const isAdmin = async (_req: Request, res: Response, next: NextFunction) 
     const query = { _id: new ObjectId(id) };
     const user = (await collections.users.findOne(query));
     const isAdmin = user.roles.admin;
+    console.log("is admin check!: ", isAdmin)
   
     if (!isAdmin) {
-      res.status(401).send({message: 'Unauthorized'});
+      return res.status(401).send({message: 'Unauthorized'});
     }
   } catch (error) {
-      res.status(404).send({message: `Unable to find matching document with id: ${res.locals.jwtPayload._id}`});
+      return res.status(404).send({message: `Unable to find matching document with id: ${res.locals.jwtPayload._id}`});
   }
   next();
 }
@@ -41,10 +42,10 @@ export const isModerator = async (_req: Request, res: Response, next: NextFuncti
     const isModerator = user.roles.moderator;
     
     if (!isModerator) {
-      res.status(401).send({message: 'Unauthorized'});
+      return res.status(401).send({message: 'Unauthorized'});
     }
   } catch (error) {
-      res.status(404).send({message: `Unable to find matching document with id: ${res.locals.jwtPayload.id}`});
+      return res.status(404).send({message: `Unable to find matching document with id: ${res.locals.jwtPayload.id}`});
   }
   next();
 }
