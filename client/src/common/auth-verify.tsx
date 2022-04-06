@@ -21,6 +21,7 @@ const AuthVerify = () => {
       const user = JSON.parse(localStorage.getItem("user")) as TokenUser;
       if(user) {
         const decodedJwt = parseJwt(user.accessToken);
+        console.log(decodedJwt.exp * 1000 < Date.now(), " expiry")
         if (decodedJwt.exp * 1000 < Date.now()) {
           dispatch(logout());
           navigate('/');

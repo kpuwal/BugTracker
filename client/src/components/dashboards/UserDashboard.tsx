@@ -6,6 +6,7 @@ import ModeratorDashboard from './ModeratorDashboard';
 import '../../App.css';
 
 import CardsDeck from '../card/CardsDeck';
+import AuthVerify from '../../common/auth-verify';
 
 const UserDashboard = () => {
   const { user: currentUser } = useSelector((state: RootState) => state.auth);
@@ -50,6 +51,7 @@ const UserDashboard = () => {
           <CardsDeck />
         </div>
       </div>
+      <AuthVerify />
     </div>
   );
 };
