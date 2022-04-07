@@ -1,14 +1,10 @@
 import newRouter from 'express-promise-router';
-// import { userDashboard } from '../controllers/user.api';
-import { verifyToken } from '../middlewares/authJWT';
+import { verifyToken } from '../middlewares/verifyToken';
 import { readBugs, readBug, updateBug } from '../controllers/bug.api';
 
 const router = newRouter();
 
-// router.get('/dashboard', [verifyToken], userDashboard);
-
 router.get('/bugs', [verifyToken], readBugs);
-// router.get('/bug/:id', [verifyToken], readBug);
 router.put('/bug/:id', [verifyToken], updateBug);
 
 router.get('/status', [verifyToken]);

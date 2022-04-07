@@ -1,6 +1,6 @@
 import newRouter from 'express-promise-router';
 import { isModerator } from '../middlewares/verifyRoles';
-import { verifyToken } from '../middlewares/authJWT';
+import { verifyToken } from '../middlewares/verifyToken';
 import { createBug, deleteBug } from '../controllers/bug.api';
 import { readUsers } from '../controllers/user.api';
 import { moderatorDashboard } from '../controllers/moderator.api';

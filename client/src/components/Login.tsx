@@ -26,7 +26,7 @@ function Redirect({ to }: any) {
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+  const { isLoggedIn } = useSelector((state: RootState) => state.auth);
   const { message } = useSelector((state: RootState) => state.message);
   const dispatch = useAppDispatch();
 
@@ -57,7 +57,7 @@ const Login = () => {
       .unwrap()
       .then(() => {
         navigate("/dashboard"); // or props.history.push("/profile")
-        window.location.reload();
+        // window.location.reload();
       })
       .catch(() => {
         setLoading(false);
@@ -65,8 +65,9 @@ const Login = () => {
   };
 
   if (isLoggedIn) {
-    return <Redirect to="/dashboard" />;
-  } else {
+    return <Redirect to="/dashboard" />
+  }
+  
     return (
       <div>
         <div>
@@ -108,5 +109,5 @@ const Login = () => {
       </div>
     );
   }
-};
+
 export default Login;

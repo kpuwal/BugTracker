@@ -9,11 +9,15 @@ import { CardTypes } from '../../types';
 // }
 
 const Card = ({title, description, createdBy, status}: CardTypes) => {
+  const handleDelete = () => {
+
+  }
   return (
     <div style={{padding: 5, border: 1}}>
       <p>title: {title}</p>
       <p>description: {description}</p>
       <p>createdBy: {createdBy}</p>
+      {<button onClick={handleDelete}>delete</button>}
     </div>
   )
 }

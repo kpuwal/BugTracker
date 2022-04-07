@@ -20,13 +20,19 @@ export interface TokenUser extends User {
   accessToken: string,
 }
 
-// export interface DbUser extends User {
-//   roles: RoleTypes,
-// }
+export interface UserCard extends User {
+  isAdmin?: TokenUser,
+  isModerator?: boolean | null,
+}
 
 export type authSliceTypes = {
   isLoggedIn: boolean,
   user: TokenUser | null,
+}
+
+export type roleSliceTypes = {
+  isAdmin: boolean,
+  isModerator: boolean,
 }
 
 export type StatusTypes = {

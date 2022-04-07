@@ -51,7 +51,7 @@ export const logInUser = async (req: Request, res: Response) => {
 
   try {
     const user = (await collections.users.findOne({email}));
-    if (!user) { res.status(404).send('user does not exist') };
+    if (!user) { res.status(404).send({message: 'sorry, user does not exist'}) };
 
     const passwordIsValid = bcrypt.compareSync(
       req.body.password,
@@ -70,11 +70,13 @@ export const logInUser = async (req: Request, res: Response) => {
     });
 
     res.status(200).send({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      roles: user.roles,
-      accessToken: token
+      accessToken: token,
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        roles: user.roles,
+      }
     });
   } catch (error) {
     res.status(400).send(error.message);

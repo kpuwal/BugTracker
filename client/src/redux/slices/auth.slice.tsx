@@ -1,11 +1,11 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { setMessage } from './message.slice';
 import { clearCards } from './card.slice';
 import AuthService from '../../services/auth.service';
 import { authType, TokenUser, authSliceTypes } from '../../types';
 
 // @ts-ignore
-const user = JSON.parse(localStorage.getItem("user") as TokenUser);
+// const user: TokenUser | null = JSON.parse(localStorage.getItem("user"));
 
 export const register = createAsyncThunk(
   "auth/register",
@@ -26,11 +26,10 @@ export const register = createAsyncThunk(
 export const login = createAsyncThunk(
   "auth/login",
   async ({email, password}: authType, thunkAPI) => {
-    console.log(email)
+    
     try {
       const data = await AuthService.login({email, password});
-      console.log("data ", data)
-      return { user: data };
+      return data;
     } catch (error: any) {
       const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
 
@@ -48,9 +47,11 @@ export const logout = createAsyncThunk(
   }
 );
 
-const initialState: authSliceTypes = user
-? {isLoggedIn: true, user }
-: {isLoggedIn: false, user: null}
+const initialState: authSliceTypes =
+{
+  isLoggedIn: false, 
+  user: null,
+}
 
 const authSlice = createSlice({
   name: 'auth',
@@ -63,9 +64,9 @@ const authSlice = createSlice({
     builder.addCase(register.rejected, (state, _action) => {
       state.isLoggedIn = false;
     })
-    builder.addCase(login.fulfilled, (state, action) => {
+    builder.addCase(login.fulfilled, (state, action: PayloadAction<TokenUser>) => {
       state.isLoggedIn = true;
-      state.user = action.payload.user;
+      state.user = action.payload;
     })
     builder.addCase(login.rejected, (state, _action) => {
       state.isLoggedIn = false;

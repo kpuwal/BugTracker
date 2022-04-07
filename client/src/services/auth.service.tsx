@@ -3,7 +3,7 @@ import { authType } from '../types';
 
 const API_URL = process.env.REACT_APP_URL;
 
-const register = ({name, email, password}: authType) => {
+const register = async ({name, email, password}: authType) => {
   return axios.post(API_URL + "auth/register", {
     name,
     email,
@@ -11,7 +11,7 @@ const register = ({name, email, password}: authType) => {
   });
 }
 
-const login = ({email, password}: authType) => {
+const login = async ({email, password}: authType) => {
   return axios
     .post(API_URL + "auth/login", {
       email,
@@ -19,14 +19,14 @@ const login = ({email, password}: authType) => {
     })
     .then((response) => {
       if (response.data.accessToken) {
-        localStorage.setItem("user", JSON.stringify(response.data));
+        localStorage.setItem("token", JSON.stringify(response.data.accessToken));
       }
-      return response.data;
+      return response.data.user;
     });
 }
 
 const logout = () => {
-  localStorage.removeItem("user");
+  localStorage.removeItem("token");
 }
 
 const authService = {

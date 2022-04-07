@@ -4,16 +4,16 @@ import authHeader from './auth-header';
 
 const API_URL = process.env.REACT_APP_URL;
 
-const getDashboard = (role: string) => {
-  const requestConfig: AxiosRequestConfig = { headers: authHeader() };
-  console.log("url: ", API_URL + `${role}/dashboard`)
-  return axios.get(API_URL + `${role}/dashboard`, requestConfig);
-};
+// const getDashboard = (role: string) => {
+//   const requestConfig: AxiosRequestConfig = { headers: authHeader() };
+//   console.log("url: ", API_URL + `${role}/dashboard`)
+//   return axios.get(API_URL + `${role}/dashboard`, requestConfig);
+// };
 
-const getUserDashboard = () => {
-  const requestConfig: AxiosRequestConfig = { headers: authHeader() };
-  return axios.get(API_URL + 'user/dashboard', requestConfig);
-};
+// const getUserDashboard = () => {
+//   const requestConfig: AxiosRequestConfig = { headers: authHeader() };
+//   return axios.get(API_URL + 'user/dashboard', requestConfig);
+// };
 
 const showUsers = () => {
   const requestConfig: AxiosRequestConfig = { headers: authHeader() };
@@ -31,8 +31,8 @@ const deleteUser = ({_id}: deleteTypes) => {
 };
 
 const userService = {
-  getDashboard,
-  getUserDashboard,
+  // getDashboard,
+  // getUserDashboard,
   showUsers,
   updateUser,
   deleteUser,

@@ -1,13 +1,15 @@
 import React, {useState} from 'react';
+import { useSelector } from "react-redux";
+import { RootState, useAppDispatch } from '../../redux/store';
 
 import { User } from '../../types';
-import { useAppDispatch } from '../../redux/store';
 import {updateUser, deleteUser } from '../../redux/slices/user.slice';
 
 const UserCard = ({_id, name, email, roles}: User) => {
   const [isChecked, setIsChecked] = useState(roles.moderator);
+  const { user } = useSelector((state: RootState) => state.auth);
   const dispatch = useAppDispatch();
-  
+
   const handleChange = () => {
     setIsChecked(!isChecked);
   }
@@ -25,7 +27,7 @@ const UserCard = ({_id, name, email, roles}: User) => {
     <div style={{padding: 3, border: 1, borderStyle: 'solid', borderColor: '#000', marginBottom: 4}}>
       <p>name: {name}</p>
       <p>email: {email}</p>
-      <p>moderator: 
+       {user?.roles.admin && <><p>moderator: 
         <input
           type="checkbox"
           name={name}
@@ -34,7 +36,7 @@ const UserCard = ({_id, name, email, roles}: User) => {
         />
       </p>
       <button onClick={handleSave}>save</button>
-      <button onClick={handleDelete}>delete user</button>
+      <button onClick={handleDelete}>delete user</button></>}
     </div>
   )
 }

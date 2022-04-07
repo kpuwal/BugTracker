@@ -23,13 +23,10 @@ const Profile = () => {
       <div>
         <header>
           <h3>
-            <strong>{currentUser.name}</strong> Profile
+            <strong>{currentUser.name}'s</strong> Profile
           </h3>
         </header>
-        <p>
-          <strong>Token:</strong> {currentUser.accessToken.substring(0, 20)} ...{" "}
-          {currentUser.accessToken.substring(currentUser.accessToken.length - 20)}
-        </p>
+        
         <p>
           <strong>Id:</strong> {currentUser._id}
         </p>
@@ -42,10 +39,6 @@ const Profile = () => {
         <button onClick={() => dispatch(logout())}>
           LogOut
         </button>
-        {/* <ul>
-          {currentUser.roles &&
-            currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
-        </ul> */}
       </div>
   );
 }
