@@ -25,9 +25,9 @@ function Redirect({ to }: any) {
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
   const { isLoggedIn } = useSelector((state: RootState) => state.auth);
   const { message } = useSelector((state: RootState) => state.message);
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
