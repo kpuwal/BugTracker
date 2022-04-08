@@ -67,6 +67,24 @@ export const updateBug = async (req: Request, res: Response) => {
   }
 }
 
+const updateBugStatus = async (req: Request, res: Response) => {
+  const id = req?.params?.id;
+
+  try {
+      // const updatedBug: Bug = req.body. as Bug;
+      const update = { $set: {status: req.body.status} };
+      const query = { _id: new ObjectId(id) };
+      const result = await collections.bugs.updateOne(query, update);
+
+      result
+          ? res.status(200).send({message: `Successfully updated bug with id ${id}`})
+          : res.status(304).send({message: `Bug with id: ${id} not updated`});
+  } catch (error) {
+      console.error(error.message);
+      res.status(400).send({message: error.message});
+  }
+}
+
 export const deleteBug = async (req: Request, res: Response) => {
   const id = req?.params?.id;
 

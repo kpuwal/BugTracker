@@ -37,7 +37,7 @@ const Login = () => {
   const initialValues = {
     email: "",
     password: "",
-  };
+  }
 
   const validationSchema = Yup.object({
     email: Yup
@@ -62,52 +62,52 @@ const Login = () => {
       .catch(() => {
         setLoading(false);
       });
-  };
+  }
 
   if (isLoggedIn) {
     return <Redirect to="/dashboard" />
   }
   
-    return (
+  return (
+    <>
       <div>
-        <div>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={handleLogin}
-          >
-            <Form>
-              <div>
-                <label>Email</label>
-                <Field name="email" type="text" />
-                <ErrorMessage
-                  name="email"
-                  component="div"
-                />
-              </div>
-              <div>
-                <label>Password</label>
-                <Field name="password" type="password" />
-                <ErrorMessage
-                  name="password"
-                  component="div"
-                />
-              </div>
-              <div>
-                <button type="submit" disabled={loading}>
-                  <span>Login</span>
-                </button>
-                {loading && (<span>loading...</span>)}
-              </div>
-            </Form>
-          </Formik>
-        </div>
-        {message && (<div>{message}</div>)}
-        <Link to="/register">
-          <small>Create new account</small>
-        </Link>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={handleLogin}
+        >
+          <Form>
+            <div>
+              <label>Email</label>
+              <Field name="email" type="text" />
+              <ErrorMessage
+                name="email"
+                component="div"
+              />
+            </div>
+            <div>
+              <label>Password</label>
+              <Field name="password" type="password" />
+              <ErrorMessage
+                name="password"
+                component="div"
+              />
+            </div>
+            <div>
+              <button type="submit" disabled={loading}>
+                <span>Login</span>
+              </button>
+              {loading && (<span>loading...</span>)}
+            </div>
+          </Form>
+        </Formik>
       </div>
-    );
-  }
+      {message && (<div>{message}</div>)}
+      <Link to="/register">
+        <small>Create new account</small>
+      </Link>
+    </>
+  )
+}
 
 export default Login;
