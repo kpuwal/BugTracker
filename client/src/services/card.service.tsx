@@ -1,11 +1,11 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { CreateCardTypes } from '../types';
+import { Card, deleteTypes } from '../types';
 import authHeader from './auth-header';
 
 const API_URL = process.env.REACT_APP_URL;
+const requestConfig: AxiosRequestConfig = { headers: authHeader() };
 
-const addCard = ({title, description, createdBy, category}: CreateCardTypes) => {
-  const requestConfig: AxiosRequestConfig = { headers: authHeader() };
+const addCard = ({title, description, createdBy, category}: Card) => {
   return axios.post(API_URL + "moderator/bug", {
     title,
     description,
@@ -15,13 +15,17 @@ const addCard = ({title, description, createdBy, category}: CreateCardTypes) => 
 }
 
 const readCards = () => {
-  const requestConfig: AxiosRequestConfig = { headers: authHeader() };
   return axios.get(API_URL + "user/bugs", requestConfig);
+}
+
+const deleteCard = ({_id}: deleteTypes) => {
+  return axios.get(API_URL + `moderator/bug/${_id}`, requestConfig);
 }
 
 const CardService = {
   addCard,
   readCards,
+  deleteCard,
 }
 
 export default CardService;
