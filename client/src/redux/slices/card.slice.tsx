@@ -8,7 +8,7 @@ export const createCard = createAsyncThunk(
   async ({title, description, createdBy, category}: CreateCardTypes, thunkAPI) => {
 
     try {
-      const response = await CardService.addCard({title, description, createdBy, category});
+      const response = await CardService.createOne({title, description, createdBy, category});
       thunkAPI.dispatch(setMessage((response.data.message).toString()));
       return response.data;
     } catch (error: any) {
@@ -24,7 +24,7 @@ export const showCards = createAsyncThunk(
   "user/bugs",
   async (_, thunkAPI) => {
     try {
-      const response = await CardService.readCards();
+      const response = await CardService.readAll();
       thunkAPI.dispatch(setMessage((response.data.message)));
       return response.data;
     } catch (error: any) {
@@ -39,7 +39,7 @@ export const deleteCard = createAsyncThunk(
   "moderator/bug/:id",
   async ({_id}: deleteTypes, thunkAPI) => {
     try {
-      const response = await CardService.deleteCard({_id});
+      const response = await CardService.deleteOne({_id});
       thunkAPI.dispatch(setMessage((response.data.message).toString()));
       thunkAPI.dispatch(showCards());
 
@@ -57,7 +57,7 @@ export const updateCardStatus = createAsyncThunk(
   'user/bug/:id',
   async (card: Card, thunkAPI) => {
     try {
-      const response = await CardService.updateCardStatus(card);
+      const response = await CardService.updateStatus(card);
       thunkAPI.dispatch(setMessage((response.data.message).toString()));
       return response.data;
     } catch (error: any) {
@@ -73,7 +73,7 @@ export const updateCardEdit = createAsyncThunk(
   'moderator/bug/:id',
   async (card: Card, thunkAPI) => {
     try {
-      const response = await CardService.updateCardEdit(card);
+      const response = await CardService.updateContent(card);
       thunkAPI.dispatch(setMessage((response.data.message).toString()));
       return response.data;
     } catch (error: any) {

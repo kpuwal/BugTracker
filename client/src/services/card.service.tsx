@@ -3,7 +3,8 @@ import { Card, deleteTypes } from '../types';
 import authHeader from './auth-header';
 
 const API_URL = process.env.REACT_APP_URL;
-const addCard = ({title, description, createdBy, category}: Card) => {
+
+const createOne = ({title, description, createdBy, category}: Card) => {
   const requestConfig: AxiosRequestConfig = { headers: authHeader() };
   return axios.post(API_URL + "moderator/bug", {
     title,
@@ -13,32 +14,32 @@ const addCard = ({title, description, createdBy, category}: Card) => {
   }, requestConfig);
 }
 
-const readCards = () => {
+const readAll = () => {
   const requestConfig: AxiosRequestConfig = { headers: authHeader() };
   return axios.get(API_URL + "user/bugs", requestConfig);
 }
 
-const deleteCard = ({_id}: deleteTypes) => {
+const deleteOne = ({_id}: deleteTypes) => {
   const requestConfig: AxiosRequestConfig = { headers: authHeader() };
   return axios.delete(API_URL + `moderator/bug/${_id}`, requestConfig);
 }
 
-const updateCardStatus = (card: Card) => {
+const updateStatus = (card: Card) => {
   const requestConfig: AxiosRequestConfig = { headers: authHeader() };
   return axios.put(API_URL + `user/bug/${card._id}`,card, requestConfig);
 }
 
-const updateCardEdit = (card: Card) => {
+const updateContent = (card: Card) => {
   const requestConfig: AxiosRequestConfig = { headers: authHeader() };
   return axios.put(API_URL + `moderator/bug/${card._id}`, card, requestConfig);
 }
 
 const CardService = {
-  addCard,
-  readCards,
-  deleteCard,
-  updateCardStatus,
-  updateCardEdit,
+  createOne,
+  readAll,
+  updateStatus,
+  updateContent,
+  deleteOne,
 }
 
 export default CardService;
