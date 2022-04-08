@@ -17,7 +17,8 @@ const CardsDeck = () => {
       .unwrap()
       .then(() => {
         setLoading(false);
-      });
+      })
+      .catch((error) => {console.log(error)})
   },[dispatch]);
 
   const handleDelete = ({_id}: deleteTypes) => {

@@ -1,7 +1,7 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { setMessage } from './message.slice';
 import UserService from '../../services/user.service';
-import { UserInitialTypes, updateTypes, deleteTypes } from '../../types';
+import { UserInitialTypes, updateTypes, deleteTypes, User } from '../../types';
 
 export const showUsers = createAsyncThunk(
   "moderator/users",
@@ -66,7 +66,7 @@ const userSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(showUsers.fulfilled, (state, action) => {
+    builder.addCase(showUsers.fulfilled, (state, action: PayloadAction<User[]>) => {
       state.users = action.payload;
     })
     builder.addCase(updateUser.fulfilled, (state, _action) => {

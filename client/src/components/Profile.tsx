@@ -13,12 +13,20 @@ function Redirect({ to }: any) {
 }
 
 const Profile = () => {
-  const { user: currentUser } = useSelector((state: RootState) => state.auth);
+  const { isLoggedIn, user: currentUser } = useSelector((state: RootState) => state.auth);
   const dispatch = useAppDispatch();
 
-  if (!currentUser) {
+  // useEffect(() => {
+  //   const checkToken = () => {
+  //     return JSON.parse(localStorage.getItem('token') || '{}') as string;
+  //   }
+  //   token = checkToken();
+  // })
+  // const token = JSON.parse(localStorage.getItem('token') || '{}') as string;
+
+  if (!isLoggedIn) {
     return <Redirect to="/" />;
-  } else {
+  }
     return (
       <div>
         <header>
@@ -42,5 +50,5 @@ const Profile = () => {
       </div>
   );
 }
-};
+
 export default Profile;

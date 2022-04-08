@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { setMessage } from './message.slice';
 import CardService from '../../services/card.service';
 import { CreateCardTypes, CardSliceTypes, deleteTypes, Card } from '../../types';
@@ -87,6 +87,12 @@ export const updateCardEdit = createAsyncThunk(
   }
 )
 
+type cardsTypes = {
+  toDo: Card[],
+  doing: Card[],
+  done: Card[],
+}
+
 const initialState: CardSliceTypes = {
   isCreated: false,
   cards: {
@@ -111,10 +117,8 @@ const cardSlice = createSlice({
     builder.addCase(createCard.rejected, (state, _action) => {
       state.isCreated = false;
     })
-    builder.addCase(showCards.fulfilled, (state, action) => {
-      state.cards.toDo = action.payload.toDo;
-      state.cards.doing = action.payload.doing;
-      state.cards.done = action.payload.done;
+    builder.addCase(showCards.fulfilled, (state, action: PayloadAction<cardsTypes>) => {
+      state.cards = action.payload;
     })
     // builder.addCase(showCards.rejected, (state, _action) => {
     //   state.isCreated = false;

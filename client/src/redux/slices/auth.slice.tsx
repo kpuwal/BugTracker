@@ -4,8 +4,9 @@ import { clearCards } from './card.slice';
 import AuthService from '../../services/auth.service';
 import { authType, User, authSliceTypes } from '../../types';
 
-// @ts-ignore
-// const user: TokenUser | null = JSON.parse(localStorage.getItem("user"));
+
+// const token = JSON.parse(localStorage.getItem("token") || '{}') as string;
+
 const initialUser: User = {
   _id: "",
   name: "",

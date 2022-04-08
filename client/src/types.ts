@@ -69,11 +69,11 @@ export interface CardTypes extends Card {
 }
 
 export type CardSliceTypes = {
-  isCreated: boolean,
+  isCreated?: boolean,
   cards: {
-    toDo: CardTypes[],
-    doing: CardTypes[],
-    done: CardTypes[],
+    toDo: Card[],
+    doing: Card[],
+    done: Card[],
   }
 }
 
