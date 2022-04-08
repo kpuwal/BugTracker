@@ -16,18 +16,28 @@ export type User = {
   roles: RoleTypes,
 }
 
-export interface TokenUser extends User {
-  accessToken: string,
+export type Card = {
+  _id?: string,
+  title: string,
+  description: string,
+  createdBy: string,
+  category?: string,
+  date?: string,
+  status?: StatusTypes,
 }
 
+// export interface TokenUser extends User {
+//   accessToken: string,
+// }
+
 export interface UserCard extends User {
-  isAdmin?: TokenUser,
+  isAdmin?: User,
   isModerator?: boolean | null,
 }
 
 export type authSliceTypes = {
   isLoggedIn: boolean,
-  user: TokenUser | null,
+  user: User,
 }
 
 export type roleSliceTypes = {
@@ -48,8 +58,9 @@ export type CreateCardTypes = {
   category?: string,
 }
 
-export interface CardTypes extends CreateCardTypes {
-  status: StatusTypes,
+export interface CardTypes extends Card {
+  handleDelete: Function,
+  isModerator: boolean,
 }
 
 export type CardSliceTypes = {

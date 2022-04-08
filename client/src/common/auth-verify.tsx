@@ -1,12 +1,11 @@
 import React, { useLayoutEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { TokenUser } from '../types';
 import { useAppDispatch } from '../redux/store';
 import { logout } from '../redux/slices/auth.slice';
 
 const parseJwt = (token: string) => {
   try {
-    return JSON.parse(atob(token.split('.')[1]));
+    return JSON.parse((token.split('.')[1]));
   } catch (e) {
     return null;
   }
@@ -18,16 +17,15 @@ const AuthVerify = () => {
 
   useLayoutEffect(() => {
       // @ts-ignore
-      const user = JSON.parse(localStorage.getItem("user")) as TokenUser;
-      if(user) {
-        const decodedJwt = parseJwt(user.accessToken);
+      const token = JSON.parse(localStorage.getItem("token")) as string;
+      if(token) {
+        const decodedJwt = parseJwt(token);
         console.log(decodedJwt.exp * 1000 < Date.now(), " expiry")
         if (decodedJwt.exp * 1000 < Date.now()) {
           dispatch(logout());
           navigate('/');
         }
       }
-      console.log("inside the auth-verify ", user)
    })
    return (
      <div></div>

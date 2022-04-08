@@ -75,14 +75,14 @@ export const deleteBug = async (req: Request, res: Response) => {
       const result = await collections.bugs.deleteOne(query);
 
       if (result && result.deletedCount) {
-          res.status(202).send(`Successfully removed bug with id ${id}`);
+          res.status(202).send({message: `Successfully removed a bug`});
       } else if (!result) {
-          res.status(400).send(`Failed to remove bug with id ${id}`);
+          res.status(400).send({message: `Failed to remove bug`});
       } else if (!result.deletedCount) {
-          res.status(404).send(`Bug with id ${id} does not exist`);
+          res.status(404).send({message: `Bug with id ${id} does not exist`});
       }
   } catch (error) {
       console.error(error.message);
-      res.status(400).send(error.message);
+      res.status(400).send({message: error.message});
   }
 }

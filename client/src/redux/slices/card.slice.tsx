@@ -26,6 +26,7 @@ export const showCards = createAsyncThunk(
     try {
       const response = await CardService.readCards();
       thunkAPI.dispatch(setMessage((response.data.message)));
+      console.log(response.data, "cards")
       return response.data;
     } catch (error: any) {
       const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
@@ -46,7 +47,7 @@ const initialState: CardSliceTypes = {
 }
 
 const cardSlice = createSlice({
-  name: 'auth',
+  name: 'card',
   initialState,
   reducers: {
     clearCards: (state, action) => {
