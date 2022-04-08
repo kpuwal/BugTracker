@@ -41,6 +41,7 @@ export const deleteUser = createAsyncThunk(
     try {
       const response = await UserService.deleteUser({_id});
       thunkAPI.dispatch(setMessage((response.data.message).toString()));
+      thunkAPI.dispatch(showUsers());
       return response.data;
     } catch (error: any) {
       const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();

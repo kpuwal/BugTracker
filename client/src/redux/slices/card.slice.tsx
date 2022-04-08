@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { setMessage } from './message.slice';
 import CardService from '../../services/card.service';
-import { CreateCardTypes, CardSliceTypes, deleteTypes } from '../../types';
+import { CreateCardTypes, CardSliceTypes, deleteTypes, Card } from '../../types';
 
 export const createCard = createAsyncThunk(
   "moderator/bug",
@@ -42,6 +42,40 @@ export const deleteCard = createAsyncThunk(
   async ({_id}: deleteTypes, thunkAPI) => {
     try {
       const response = await CardService.deleteCard({_id});
+      thunkAPI.dispatch(setMessage((response.data.message).toString()));
+      thunkAPI.dispatch(showCards());
+
+      return response.data;
+    } catch (error: any) {
+      const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+)
+
+export const updateCardStatus = createAsyncThunk(
+  'user/bug/:id',
+  async (card: Card, thunkAPI) => {
+    try {
+      const response = await CardService.updateCardStatus(card);
+      thunkAPI.dispatch(setMessage((response.data.message).toString()));
+      return response.data;
+    } catch (error: any) {
+      const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+)
+
+export const updateCardEdit = createAsyncThunk(
+  'moderator/bug/:id',
+  async (card: Card, thunkAPI) => {
+    try {
+      const response = await CardService.updateCardEdit(card);
       thunkAPI.dispatch(setMessage((response.data.message).toString()));
       return response.data;
     } catch (error: any) {

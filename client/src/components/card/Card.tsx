@@ -8,7 +8,7 @@ const Card = ({_id, title, description, createdBy, isModerator, handleDelete}: C
       <p>description: {description}</p>
       <p>createdBy: {createdBy}</p>
       {
-        isModerator && <button onClick={() => handleDelete(_id)}>delete</button>
+        isModerator && <button onClick={() => handleDelete({_id})}>delete</button>
       }
     </div>
   )

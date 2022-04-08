@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from '../../redux/store';
-import {showCards} from '../../redux/slices/card.slice';
+import {showCards, deleteCard} from '../../redux/slices/card.slice';
 import Card from './Card';
+import { deleteTypes } from '../../types';
 
 const CardsDeck = () => {
   const [loading, setLoading] = useState(true);
@@ -19,9 +20,9 @@ const CardsDeck = () => {
       });
   },[dispatch]);
 
-  const handleDelete = (id: string) => {
-    console.log(id)
-    // dispatch(deleteCard(id));
+  const handleDelete = ({_id}: deleteTypes) => {
+    console.log(_id, " id")
+    dispatch(deleteCard({_id}));
   }
 
   return (

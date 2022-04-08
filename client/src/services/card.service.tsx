@@ -19,13 +19,23 @@ const readCards = () => {
 }
 
 const deleteCard = ({_id}: deleteTypes) => {
-  return axios.get(API_URL + `moderator/bug/${_id}`, requestConfig);
+  return axios.delete(API_URL + `moderator/bug/${_id}`, requestConfig);
+}
+
+const updateCardStatus = (card: Card) => {
+  return axios.put(API_URL + `user/bug/${card._id}`,card, requestConfig);
+}
+
+const updateCardEdit = (card: Card) => {
+  return axios.put(API_URL + `moderator/bug/${card._id}`, card, requestConfig);
 }
 
 const CardService = {
   addCard,
   readCards,
   deleteCard,
+  updateCardStatus,
+  updateCardEdit,
 }
 
 export default CardService;

@@ -68,7 +68,7 @@ export const updateBug = async (req: Request, res: Response) => {
 }
 
 export const deleteBug = async (req: Request, res: Response) => {
-  const id = req?.params?._id;
+  const id = req?.params?.id;
 
   try {
       const query = { _id: new ObjectId(id) };

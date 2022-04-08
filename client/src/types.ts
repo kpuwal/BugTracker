@@ -35,6 +35,11 @@ export interface UserCard extends User {
   isModerator?: boolean | null,
 }
 
+export type userUpdateCardTypes = {
+  _id: string,
+  status: StatusTypes,
+}
+
 export type authSliceTypes = {
   isLoggedIn: boolean,
   user: User,
