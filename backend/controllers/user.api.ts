@@ -3,7 +3,7 @@ import { collections } from "../db/services/mongo.connection";
 import { ObjectId } from "mongodb";
 import User from "../db/models/user.model";
 
-export const readUsers = async (_req: Request, res: Response) => {
+const readAll = async (_req: Request, res: Response) => {
   try {
     const users = await collections.users.find({}).toArray();
 
@@ -13,7 +13,7 @@ export const readUsers = async (_req: Request, res: Response) => {
   }
 }
 
-export const readUser = async (req: Request, res: Response) => {
+const readOne = async (req: Request, res: Response) => {
   const id = req?.params?.id;
 
   try {
@@ -28,7 +28,7 @@ export const readUser = async (req: Request, res: Response) => {
   }
 }
 
-export const updateUser = async (req: Request, res: Response) => {
+const updateOne = async (req: Request, res: Response) => {
   const id = req?.body?._id;
   try {
       const update = { $set: {roles: req.body.roles} };
@@ -42,7 +42,7 @@ export const updateUser = async (req: Request, res: Response) => {
   }
 }
 
-export const deleteUser = async (req: Request, res: Response) => {
+const deleteOne = async (req: Request, res: Response) => {
   const id = req?.params?.id;
   
   try {
@@ -60,3 +60,12 @@ export const deleteUser = async (req: Request, res: Response) => {
       res.status(400).send({message: error.message});
   }
 }
+
+const userAPI = {
+  readAll,
+  readOne,
+  updateOne,
+  deleteOne,
+}
+
+export default userAPI;

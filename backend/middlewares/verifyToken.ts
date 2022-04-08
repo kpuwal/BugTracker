@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 
 const secret = process.env.AUTH_SECRET;
 
-export const verifyToken = (req: Request, res: Response, next: NextFunction) => {
+const verifyToken = (req: Request, res: Response, next: NextFunction) => {
   let jwtPayload: JwtPayload;
   let token = req.headers['x-access-token'] as string;
   
@@ -20,3 +20,5 @@ export const verifyToken = (req: Request, res: Response, next: NextFunction) => 
   }
   next();
 };
+
+export default verifyToken;

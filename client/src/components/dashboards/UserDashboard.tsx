@@ -9,8 +9,8 @@ import CardsDeck from '../card/CardsDeck';
 // import AuthVerify from '../../common/auth-verify';
 
 const UserDashboard = () => {
-  const { isLoggedIn, user: currentUser } = useSelector((state: RootState) => state.auth);
-console.log("user dashboard is logged in ", isLoggedIn)
+  const { user: currentUser } = useSelector((state: RootState) => state.auth);
+
   return (
     <div>
       <header>

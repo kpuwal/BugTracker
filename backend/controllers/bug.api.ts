@@ -4,7 +4,7 @@ import { ObjectId } from "mongodb";
 import Bug from "../db/models/bug.model";
 import Status from '../db/models/status.model';
 
-export const readBugs = async (_req: Request, res: Response) => {
+const readAll = async (_req: Request, res: Response) => {
   try {
     // const bugs = await collections.bugs.find({}).toArray();
     const toDoBugs = await collections.bugs.find({status: { toDo: true, doing: false, done: false }}).toArray();
@@ -17,7 +17,7 @@ export const readBugs = async (_req: Request, res: Response) => {
   }
 }
 
-export const readBug = async (req: Request, res: Response) => {
+const readOne = async (req: Request, res: Response) => {
   const id = req?.params?.id;
   console.log("bug id and data ", id)
 
@@ -33,7 +33,7 @@ export const readBug = async (req: Request, res: Response) => {
   }
 }
 
-export const createBug = async (req: Request, res: Response) => {
+const createOne = async (req: Request, res: Response) => {
   try {
       const {title, description, createdBy, category} = req.body as Bug;
       const status = {toDo: true, doing: false, done: false} as Status;
@@ -49,25 +49,7 @@ export const createBug = async (req: Request, res: Response) => {
   }
 }
 
-export const updateBug = async (req: Request, res: Response) => {
-  const id = req?.params?.id;
-
-  try {
-      const updatedBug: Bug = req.body as Bug;
-      const query = { _id: new ObjectId(id) };
-    
-      const result = await collections.bugs.updateOne(query, { $set: updatedBug });
-
-      result
-          ? res.status(200).send(`Successfully updated bug with id ${id}`)
-          : res.status(304).send(`Bug with id: ${id} not updated`);
-  } catch (error) {
-      console.error(error.message);
-      res.status(400).send(error.message);
-  }
-}
-
-const updateBugStatus = async (req: Request, res: Response) => {
+const updateStatus = async (req: Request, res: Response) => {
   const id = req?.params?.id;
 
   try {
@@ -85,7 +67,24 @@ const updateBugStatus = async (req: Request, res: Response) => {
   }
 }
 
-export const deleteBug = async (req: Request, res: Response) => {
+const updateContent = async (req: Request, res: Response) => {
+  const id = req?.params?.id;
+
+  try {
+      const update = { $set: {status: req.body.status} };
+      const query = { _id: new ObjectId(id) };
+      const result = await collections.bugs.updateOne(query, update);
+
+      result
+          ? res.status(200).send({message: `Successfully updated bug with id ${id}`})
+          : res.status(304).send({message: `Bug with id: ${id} not updated`});
+  } catch (error) {
+      console.error(error.message);
+      res.status(400).send({message: error.message});
+  }
+}
+
+const deleteOne = async (req: Request, res: Response) => {
   const id = req?.params?.id;
 
   try {
@@ -104,3 +103,14 @@ export const deleteBug = async (req: Request, res: Response) => {
       res.status(400).send({message: error.message});
   }
 }
+
+const bugAPI = {
+  createOne,
+  readAll,
+  readOne,
+  updateStatus,
+  updateContent,
+  deleteOne,
+}
+
+export default bugAPI;

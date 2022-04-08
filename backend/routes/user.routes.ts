@@ -1,11 +1,11 @@
 import newRouter from 'express-promise-router';
-import { verifyToken } from '../middlewares/verifyToken';
-import { readBugs, readBug, updateBug } from '../controllers/bug.api';
+import verifyToken from '../middlewares/verifyToken';
+import bugAPI from '../controllers/bug.api';
 
 const router = newRouter();
 
-router.get('/bugs', [verifyToken], readBugs);
-router.put('/bug/:id', [verifyToken], updateBug);
+router.get('/bugs', [verifyToken], bugAPI.readAll);
+router.put('/bug/:id', [verifyToken], bugAPI.updateStatus);
 
 router.get('/status', [verifyToken]);
 router.get('/status/:id', [verifyToken]);
