@@ -6,7 +6,7 @@ import User from "../db/models/user.model";
 const readAll = async (_req: Request, res: Response) => {
   try {
     const users = await collections.users.find({}).toArray();
-
+console.log(users)
     res.status(200).send({ users });
   } catch (error) {
       res.status(500).send({message: error.message});

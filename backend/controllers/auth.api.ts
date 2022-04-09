@@ -66,7 +66,7 @@ export const logInUser = async (req: Request, res: Response) => {
     }
 
     const token = jwt.sign({ _id: user._id, name: user.name }, secret, {
-      expiresIn: 9000
+      expiresIn: 60 * 20
     });
 
     res.status(200).send({

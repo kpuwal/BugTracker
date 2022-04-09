@@ -5,14 +5,10 @@ import bugAPI from '../controllers/bug.api';
 import userAPI from '../controllers/user.api';
 const router = newRouter();
 
-router.get('/users', [verifyToken, isModerator], userAPI.readOne);
-
-// Moderator routes (one team per moderator)
-router.get('/team/:id', [verifyToken, isModerator]); // get a team 
+router.get('/users', [verifyToken, isModerator], userAPI.readAll);
 
 router.post('/bug', [verifyToken, isModerator], bugAPI.createOne);
 router.delete('/bug/:id', [verifyToken, isModerator], bugAPI.deleteOne);
-// router.put('/bug/:id', [verifyToken, isModerator], updateBug);
 
 router.post('/team', [verifyToken, isModerator]); // create a team
 router.put('/team/:id', [verifyToken, isModerator]); // update a team

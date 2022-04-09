@@ -7,7 +7,7 @@ export const showUsers = createAsyncThunk(
   "moderator/users",
   async (_, thunkAPI) => {
     try {
-      const response = await UserService.showUsers();
+      const response = await UserService.readAll();
       thunkAPI.dispatch(setMessage((response.data.message)));
       return response.data.users;
     } catch (error: any) {
@@ -23,7 +23,7 @@ export const updateUser = createAsyncThunk(
   'admin/user',
   async({_id, roles }: updateTypes, thunkAPI) => {
     try {
-      const response = await UserService.updateUser({_id, roles});
+      const response = await UserService.updateRoles({_id, roles});
       thunkAPI.dispatch(setMessage((response.data.message).toString()));
       return response.data;
     } catch (error: any) {
@@ -39,7 +39,7 @@ export const deleteUser = createAsyncThunk(
   'admin/user',
   async({_id }: deleteTypes, thunkAPI) => {
     try {
-      const response = await UserService.deleteUser({_id});
+      const response = await UserService.deleteOne({_id});
       thunkAPI.dispatch(setMessage((response.data.message).toString()));
       thunkAPI.dispatch(showUsers());
       return response.data;
