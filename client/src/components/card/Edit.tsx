@@ -4,7 +4,6 @@ import { Link, Outlet, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { createCard } from "../../redux/slices/card.slice";
-import { Card } from '../../types';
 
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
