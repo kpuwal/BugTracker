@@ -3,6 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from '../redux/store';
 import { logout } from '../redux/slices/auth.slice';
 
+type AuthVerifyTypes = {
+  children: React.ReactNode,
+}
+
 const parseJwt = (token: string) => {
   try {
     return JSON.parse((token.split('.')[1]));
@@ -11,7 +15,7 @@ const parseJwt = (token: string) => {
   }
 }
 
-const AuthVerify = () => {
+const AuthVerify = ({children}: AuthVerifyTypes) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -28,7 +32,7 @@ const AuthVerify = () => {
       }
    })
    return (
-     <div></div>
+     <div>{children}</div>
    )
   }
 

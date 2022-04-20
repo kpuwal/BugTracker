@@ -19,7 +19,6 @@ const readAll = async (_req: Request, res: Response) => {
 
 const readOne = async (req: Request, res: Response) => {
   const id = req?.params?.id;
-  console.log("bug id and data ", id)
 
   try {
     const query = { _id: new ObjectId(id) };
@@ -44,8 +43,7 @@ const createOne = async (req: Request, res: Response) => {
           ? res.status(201).send({message: `Successfully created a new bug with id ${result.insertedId}`})
           : res.status(500).send({message: "Failed to create a new bug"});
   } catch (error) {
-      console.error(error);
-      res.status(400).send(error.message);
+      res.status(400).send({message: error.message});
   }
 }
 

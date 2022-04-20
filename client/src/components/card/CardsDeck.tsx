@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from "react-redux";
+import { Outlet } from 'react-router-dom';
 import { RootState, useAppDispatch } from '../../redux/store';
 import {showCards, deleteCard} from '../../redux/slices/card.slice';
 import Card from './Card';
@@ -22,7 +23,6 @@ const CardsDeck = () => {
   },[dispatch]);
 
   const handleDelete = ({_id}: deleteTypes) => {
-    console.log(_id, " id")
     dispatch(deleteCard({_id}));
   }
 
@@ -41,7 +41,7 @@ const CardsDeck = () => {
           description={card.description}
           createdBy={card.createdBy}
           isModerator={roles.moderator}
-          {...{handleDelete}}/>)}
+          {...{ handleDelete }}/>)}
       </div>
       <div>
         <h3>Doing</h3>
@@ -52,7 +52,7 @@ const CardsDeck = () => {
           description={card.description}
           createdBy={card.createdBy}
           isModerator={roles.moderator}
-          {...{handleDelete}}/>)}
+          {...{ handleDelete }}/>)}
       </div>
       <div>
         <h3>Done</h3>
@@ -63,7 +63,7 @@ const CardsDeck = () => {
           description={card.description}
           createdBy={card.createdBy}
           isModerator={roles.moderator}
-          {...{handleDelete}}/>)}
+          {...{ handleDelete }}/>)}
       </div>
     </div>}
     </div>

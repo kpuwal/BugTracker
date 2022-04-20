@@ -11,6 +11,9 @@ import Profile from './components/Profile';
 import UserDashboard from './components/dashboards/UserDashboard';
 import CreateCard from './components/card/CreateCard';
 import UsersDeck from './components/user/UsersDeck';
+import CardsDeck from './components/card/CardsDeck';
+import EditCardRoute from './components/card/EditCardRoute';
+import Edit from './components/card/Edit';
 
 import {store, persistor} from './redux/store';
 import reportWebVitals from './reportWebVitals';
@@ -30,6 +33,10 @@ root.render(
           <Route path="/dashboard" element={<UserDashboard />}></Route>
           <Route path="/createcard" element={<CreateCard />}></Route>
           <Route path="/users" element={<UsersDeck />}></Route>
+          <Route path="cards" element={<CardsDeck />} />
+          <Route path="card" element={<EditCardRoute/>}>
+            <Route path=":id" element={<Edit />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </PersistGate>

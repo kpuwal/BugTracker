@@ -1,5 +1,6 @@
 import React from 'react';
 import { CardTypes } from '../../types';
+import { Link } from 'react-router-dom';
 
 const Card = ({_id, title, description, createdBy, isModerator, handleDelete}: CardTypes) => {
   return (
@@ -10,6 +11,7 @@ const Card = ({_id, title, description, createdBy, isModerator, handleDelete}: C
       {
         isModerator && <button onClick={() => handleDelete({_id})}>delete</button>
       }
+      {isModerator && <Link to={`/card/${_id}`}>Edit</Link>}
     </div>
   )
 }
