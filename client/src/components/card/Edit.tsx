@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { RootState, useAppDispatch } from '../../redux/store';
 import { Link, Outlet, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import { createCard } from "../../redux/slices/card.slice";
+import { updateCardContent, showCard } from "../../redux/slices/card.slice";
 
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -14,15 +14,20 @@ type InitialValuesTypes = {
   category?: string;
 }
 
-
 const EditCard = () => {
-const {id} = useParams();
+  const { id: _id } = useParams() as {id: string};
   const [loading, setLoading] = useState(false);
   const [successful, setSuccessful] = useState(false);
-  const { message } = useSelector((state: RootState) => state.message);
+  const [edit, setEdit] = useState({
+    title: false,
+    description: false,
+    category: false,
+  });
+  const card = useSelector((state: RootState) => state.card.activeCard);
+  const {message} = useSelector((state: RootState) => state.message);
   const { user: currentUser } = useSelector((state: RootState) => state.auth);
   const dispatch = useAppDispatch();
-console.log(id)
+  
   const initialValues = {
     title: "",
     description: "",
@@ -31,22 +36,31 @@ console.log(id)
 
   const validationSchema = Yup.object({
     title: Yup
-      .string()
-      .required("This field is required!"),
+      .string(),
     description: Yup
-      .string()
-      .required("This field is required!"),
+      .string(),
     category: Yup
       .string()
   });
 
-  const handleCreateCard = (formValue: InitialValuesTypes) => {
-    let createdBy;
-    currentUser !== null ? createdBy = currentUser.name : createdBy = "";
-    const { title, description, category } = formValue;
-    setSuccessful(false);
-    setLoading(true);
-    dispatch(createCard({ title, description, category, createdBy}))
+  useEffect(() => {
+    dispatch(showCard({_id}))
+      .unwrap()
+      .then(() => {
+        setLoading(false);
+      })
+      .catch((error) => {console.log(error)})
+  },[dispatch, _id]);
+
+
+  const handleUpdateCard = (formValue: InitialValuesTypes) => {
+    let { title, description, category } = formValue;
+    if (title === '') title = card.title;
+    if (description === '') description = card.description;
+    if (category === '') category = card.category;
+    const updCard = {title, description, category, createdBy: currentUser.name};
+
+    dispatch(updateCardContent({_id, card: updCard}))
       .unwrap()
       .then(() => {
         setSuccessful(true);
@@ -57,6 +71,19 @@ console.log(id)
       });
   }
 
+  const handleEdit = (str: string) => {
+    switch(str) {
+      case 'title': 
+        setEdit({...edit, title: !edit.title});
+        break;
+      case 'description': 
+        setEdit({...edit, description: !edit.description});
+        break;
+      case 'category':
+        setEdit({...edit, category: !edit.category});
+    }
+  }
+
   return (
     <>
       <Outlet />
@@ -64,14 +91,17 @@ console.log(id)
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
-          onSubmit={handleCreateCard}
+          onSubmit={handleUpdateCard}
         >
           <Form>
             {!successful && (
               <>
                 <div>
                   <label>Title</label>
-                  <Field name="title" type="text" />
+                  {
+                    edit.title ? <Field name="title" type="text" placeholder={card.title} /> : <p>{card.title}</p>
+                  }
+                  <button type="button" onClick={() => handleEdit('title')}>Edit Title</button>
                   <ErrorMessage
                     name="title"
                     component="div"
@@ -79,7 +109,10 @@ console.log(id)
                 </div>
                 <div>
                   <label>Description</label>
-                  <Field name="description" type="text" />
+                  {
+                    edit.description ? <Field name="description" type="text" placeholder={card.description} /> : <p>{card.description}</p>
+                  }
+                  <button type="button" onClick={() => handleEdit('description')}>Edit Description</button>
                   <ErrorMessage
                     name="description"
                     component="div"
@@ -87,7 +120,10 @@ console.log(id)
                 </div>
                 <div>
                   <label>Category</label>
-                  <Field name="category" type="text" />
+                  {
+                    edit.category ? <Field name="category" type="text" placeholder={card.category} /> : <p>{card.category}</p>
+                  }
+                  <button type="button" onClick={() => handleEdit('category')}>Edit Category</button>
                   <ErrorMessage
                     name="category"
                     component="div"
@@ -95,7 +131,7 @@ console.log(id)
                 </div>
                 <div>
                   <button type="submit">
-                    <span>Create a Card</span>
+                    <span>Update a Card</span>
                   </button>
                   {loading && (<span>loading...</span>)}
                 </div>

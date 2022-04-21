@@ -35,6 +35,21 @@ export const showCards = createAsyncThunk(
   }
 );
 
+export const showCard = createAsyncThunk(
+  "user/bug/:id",
+  async ({_id}: deleteTypes, thunkAPI) => {
+    try {
+      const response = await CardService.readOne({_id});
+      thunkAPI.dispatch(setMessage((response.data.message)));
+      return response.data;
+    } catch (error: any) {
+      const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+      thunkAPI.dispatch(setMessage(message));
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const deleteCard = createAsyncThunk(
   "moderator/bug/:id",
   async ({_id}: deleteTypes, thunkAPI) => {
@@ -68,12 +83,13 @@ export const updateCardStatus = createAsyncThunk(
     }
   }
 )
-
-export const updateCardEdit = createAsyncThunk(
+type dataTypes = { _id: string, card: Card}
+export const updateCardContent = createAsyncThunk(
   'moderator/bug/:id',
-  async (card: Card, thunkAPI) => {
+  async (data: dataTypes, thunkAPI) => {
+    console.log(data)
     try {
-      const response = await CardService.updateContent(card);
+      const response = await CardService.updateContent(data._id, data.card);
       thunkAPI.dispatch(setMessage((response.data.message).toString()));
       return response.data;
     } catch (error: any) {
@@ -93,6 +109,14 @@ type cardsTypes = {
 
 const initialState: CardSliceTypes = {
   isCreated: false,
+  activeCard: {
+    _id: "",
+    title: "",
+    description: "",
+    createdBy: "",
+    category: "",
+    date: "",
+  },
   cards: {
     toDo: [],
     doing: [],
@@ -117,6 +141,9 @@ const cardSlice = createSlice({
     })
     builder.addCase(showCards.fulfilled, (state, action: PayloadAction<cardsTypes>) => {
       state.cards = action.payload;
+    })
+    builder.addCase(showCard.fulfilled, (state, action: PayloadAction<Card>) => {
+      state.activeCard = action.payload;
     })
     // builder.addCase(showCards.rejected, (state, _action) => {
     //   state.isCreated = false;

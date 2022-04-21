@@ -22,10 +22,10 @@ const readOne = async (req: Request, res: Response) => {
 
   try {
     const query = { _id: new ObjectId(id) };
-    const bugs = (await collections.bugs.findOne(query));
+    const bug = (await collections.bugs.findOne(query));
     
-    if (bugs) {
-      res.status(200).send(bugs);
+    if (bug) {
+      res.status(200).send(bug);
     }
   } catch (error) {
       res.status(404).send({message: `Unable to find matching document with id: ${req.params.id}`});
@@ -67,9 +67,8 @@ const updateStatus = async (req: Request, res: Response) => {
 
 const updateContent = async (req: Request, res: Response) => {
   const id = req?.params?.id;
-
   try {
-      const update = { $set: {status: req.body.status} };
+      const update = { $set: req.body };
       const query = { _id: new ObjectId(id) };
       const result = await collections.bugs.updateOne(query, update);
 

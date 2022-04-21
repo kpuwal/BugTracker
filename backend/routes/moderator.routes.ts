@@ -8,6 +8,7 @@ const router = newRouter();
 router.get('/users', [verifyToken, isModerator], userAPI.readAll);
 
 router.post('/bug', [verifyToken, isModerator], bugAPI.createOne);
+router.put('/bug/:id', [verifyToken, isModerator], bugAPI.updateContent);
 router.delete('/bug/:id', [verifyToken, isModerator], bugAPI.deleteOne);
 
 router.post('/team', [verifyToken, isModerator]); // create a team

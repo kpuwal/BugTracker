@@ -70,6 +70,7 @@ export interface CardTypes extends Card {
 
 export type CardSliceTypes = {
   isCreated?: boolean,
+  activeCard: Card,
   cards: {
     toDo: Card[],
     doing: Card[],
@@ -88,7 +89,7 @@ export type updateTypes = {
   roles: RoleTypes,
 }
 
-export type deleteTypes = {_id: string};
+export type deleteTypes = {_id: string };
 
 export type UserInitialTypes = {
   users: User[],
