@@ -23,8 +23,9 @@ const EditCard = () => {
     description: false,
     category: false,
   });
+
   const card = useSelector((state: RootState) => state.card.activeCard);
-  const {message} = useSelector((state: RootState) => state.message);
+  const { message } = useSelector((state: RootState) => state.message);
   const { user: currentUser } = useSelector((state: RootState) => state.auth);
   const dispatch = useAppDispatch();
   

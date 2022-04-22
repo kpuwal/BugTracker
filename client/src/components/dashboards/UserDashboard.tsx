@@ -4,6 +4,7 @@ import { RootState } from '../../redux/store';
 // import AdminDashboard from './AdminDashboard';
 import ModeratorDashboard from './ModeratorDashboard';
 import '../../App.css';
+import AuthVerify from '../../common/auth-verify';
 
 import CardsDeck from '../card/CardsDeck';
 // import AuthVerify from '../../common/auth-verify';
@@ -12,7 +13,7 @@ const UserDashboard = () => {
   const { user: currentUser } = useSelector((state: RootState) => state.auth);
 
   return (
-    <div>
+    <AuthVerify>
       <header>
         <h3>dashboard</h3>
         <h5>Hello{currentUser !== null ? ` ${currentUser.name}!` : "!"}</h5>
@@ -32,7 +33,6 @@ const UserDashboard = () => {
             <p>my TEAMS</p>
             <p>my CARDS</p>
             <p>---BUG CARDS---</p>
-            <p>update a bug card</p>
             <p>(implicit) change bug's status</p>
             <p></p>
             <Link to="/profile">go to profile</Link>
@@ -44,8 +44,7 @@ const UserDashboard = () => {
         </div>
         
       </div>
-      {/* <AuthVerify /> */}
-    </div>
+    </AuthVerify>
   );
 };
 
