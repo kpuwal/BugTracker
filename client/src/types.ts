@@ -17,7 +17,7 @@ export type User = {
 }
 
 export type Card = {
-  _id?: string,
+  _id: string,
   title: string,
   description: string,
   createdBy: string,
@@ -64,7 +64,6 @@ export type CreateCardTypes = {
 }
 
 export interface CardTypes extends Card {
-  handleDelete: Function,
   isModerator: boolean,
 }
 

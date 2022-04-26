@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from '../../redux/store';
-import {showCards, deleteCard} from '../../redux/slices/card.slice';
+import {showCards} from '../../redux/slices/card.slice';
 import Card from './Card';
-import { deleteTypes } from '../../types';
 
 const CardsDeck = () => {
   const [loading, setLoading] = useState(true);
@@ -21,10 +20,6 @@ const CardsDeck = () => {
       .catch((error) => {console.log(error)})
   },[dispatch]);
 
-  const handleDelete = ({_id}: deleteTypes) => {
-    dispatch(deleteCard({_id}));
-  }
-
   return (
     <>
       <p>Deck of Bug Cards</p>
@@ -39,8 +34,7 @@ const CardsDeck = () => {
           title={card.title}
           description={card.description}
           createdBy={card.createdBy}
-          isModerator={roles.moderator}
-          {...{ handleDelete }}/>)}
+          isModerator={roles.moderator}/>)}
       </div>
       <div>
         <h3>Doing</h3>
@@ -50,8 +44,7 @@ const CardsDeck = () => {
           title={card.title}
           description={card.description}
           createdBy={card.createdBy}
-          isModerator={roles.moderator}
-          {...{ handleDelete }}/>)}
+          isModerator={roles.moderator}/>)}
       </div>
       <div>
         <h3>Done</h3>
@@ -61,8 +54,7 @@ const CardsDeck = () => {
           title={card.title}
           description={card.description}
           createdBy={card.createdBy}
-          isModerator={roles.moderator}
-          {...{ handleDelete }}/>)}
+          isModerator={roles.moderator}/>)}
       </div>
     </div>}
     </div>

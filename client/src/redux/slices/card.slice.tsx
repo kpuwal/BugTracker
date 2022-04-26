@@ -83,7 +83,8 @@ export const updateCardStatus = createAsyncThunk(
     }
   }
 )
-type dataTypes = { _id: string, card: Card}
+type dataTypes = { _id: string, card: CreateCardTypes}
+
 export const updateCardContent = createAsyncThunk(
   'moderator/bug/:id',
   async (data: dataTypes, thunkAPI) => {

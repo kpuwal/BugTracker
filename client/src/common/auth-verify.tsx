@@ -20,6 +20,8 @@ const AuthVerify = ({children}: AuthVerifyTypes) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("check time token")
+
       // @ts-ignore
       const token = JSON.parse(localStorage.getItem("token")) as string;
       if(token) {
@@ -30,28 +32,10 @@ const AuthVerify = ({children}: AuthVerifyTypes) => {
         }
       }
    })
+
    return (
      <div>{children}</div>
    )
   }
-
-// class AuthVerify extends Component {
-//   constructor(props) {
-//     super(props);
-//     props.history.listen(() => {
-//       // @ts-ignore
-//       const user = JSON.parse(localStorage.getItem("user")) as TokenUser;
-//       if (user) {
-//         const decodedJwt = parseJwt(user.accessToken);
-//         if (decodedJwt.exp * 1000 < Date.now()) {
-//           props.logOut();
-//         }
-//       }
-//     });
-//   }
-//   render() {
-//     return <div></div>;
-//   }
-// }
 
 export default AuthVerify;

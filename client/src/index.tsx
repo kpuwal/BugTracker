@@ -14,6 +14,7 @@ import UsersDeck from './components/user/UsersDeck';
 import CardsDeck from './components/card/CardsDeck';
 import EditCardRoute from './components/card/EditCardRoute';
 import Edit from './components/card/Edit';
+import MyCards from './components/card/MyCards';
 
 import {store, persistor} from './redux/store';
 import reportWebVitals from './reportWebVitals';
@@ -23,24 +24,24 @@ const root = createRoot(container as HTMLElement);
 
 root.render(
   <React.StrictMode>
-    
     <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/dashboard" element={<UserDashboard />}></Route>
-          <Route path="/createcard" element={<CreateCard />}></Route>
-          <Route path="/users" element={<UsersDeck />}></Route>
-          <Route path="cards" element={<CardsDeck />} />
-          <Route path="card" element={<EditCardRoute/>}>
-            <Route path=":id" element={<Edit />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </PersistGate>
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/dashboard" element={<UserDashboard />}></Route>
+            <Route path="/createcard" element={<CreateCard />}></Route>
+            <Route path="/users" element={<UsersDeck />}></Route>
+            <Route path="/cards" element={<CardsDeck />} />
+            <Route path="/cards/:name" element={<MyCards />} />
+            <Route path="/card" element={<EditCardRoute/>}>
+              <Route path=":id" element={<Edit />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </PersistGate>
     </Provider>
  
   </React.StrictMode>

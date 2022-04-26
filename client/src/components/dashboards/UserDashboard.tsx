@@ -31,14 +31,11 @@ const UserDashboard = () => {
           <>
             <p>---MY PROFILE---</p>
             <p>my TEAMS</p>
-            <p>my CARDS</p>
-            <p>---BUG CARDS---</p>
-            <p>(implicit) change bug's status</p>
-            <p></p>
-            <Link to="/profile">go to profile</Link>
+            <p><Link to={`/cards/${currentUser.name}`} state={currentUser}>my cards</Link></p>
+            <p><Link to="/profile">go to profile</Link></p>
             <div className="right">
-          <CardsDeck />
-        </div>
+              <CardsDeck />
+            </div>
           </>
         }
         </div>
