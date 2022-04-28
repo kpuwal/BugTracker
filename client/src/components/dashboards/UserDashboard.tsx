@@ -1,13 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { RootState } from '../../redux/store';
-// import AdminDashboard from './AdminDashboard';
 import ModeratorDashboard from './ModeratorDashboard';
 import '../../App.css';
 import AuthVerify from '../../common/auth-verify';
-
 import CardsDeck from '../card/CardsDeck';
-// import AuthVerify from '../../common/auth-verify';
 
 const UserDashboard = () => {
   const { user: currentUser } = useSelector((state: RootState) => state.auth);
@@ -30,7 +27,7 @@ const UserDashboard = () => {
           currentUser !== null && 
           <>
             <p>---MY PROFILE---</p>
-            <p>my TEAMS</p>
+            <p><Link to='/myteams'>my teams</Link></p>
             <p><Link to={`/cards/${currentUser.name}`} state={currentUser}>my cards</Link></p>
             <p><Link to="/profile">go to profile</Link></p>
             <div className="right">

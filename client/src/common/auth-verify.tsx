@@ -9,7 +9,7 @@ type AuthVerifyTypes = {
 
 const parseJwt = (token: string) => {
   try {
-    return JSON.parse(atob(token.split(".")[1]));
+    return JSON.parse(window.atob(token.split(".")[1]));
   } catch (e) {
     return null;
   }
@@ -20,8 +20,6 @@ const AuthVerify = ({children}: AuthVerifyTypes) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("check time token")
-
       // @ts-ignore
       const token = JSON.parse(localStorage.getItem("token")) as string;
       if(token) {

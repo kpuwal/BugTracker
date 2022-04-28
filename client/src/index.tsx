@@ -15,6 +15,7 @@ import CardsDeck from './components/card/CardsDeck';
 import EditCardRoute from './components/card/EditCardRoute';
 import Edit from './components/card/Edit';
 import MyCards from './components/card/MyCards';
+import MyTeams from './components/team/MyTeams';
 
 import {store, persistor} from './redux/store';
 import reportWebVitals from './reportWebVitals';
@@ -35,6 +36,7 @@ root.render(
             <Route path="/createcard" element={<CreateCard />}></Route>
             <Route path="/users" element={<UsersDeck />}></Route>
             <Route path="/cards" element={<CardsDeck />} />
+            <Route path="/myteams" element={<MyTeams />}></Route>
             <Route path="/cards/:name" element={<MyCards />} />
             <Route path="/card" element={<EditCardRoute/>}>
               <Route path=":id" element={<Edit />} />
